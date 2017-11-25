@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task01", "..\..\..\..\..\Desktop\Task01\Task01.csproj", "{3C32C61D-0975-4AF5-9A8B-53438AFC7848}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task01", "Task01\Task01.csproj", "{3C32C61D-0975-4AF5-9A8B-53438AFC7848}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task02", "..\..\..\..\..\Desktop\Task02\Task02.csproj", "{74D467AC-3E0F-456B-8710-2D25D17BCEC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task02", "Task02\Task02.csproj", "{74D467AC-3E0F-456B-8710-2D25D17BCEC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {01ADF930-8CD9-470D-9EDC-1FB59B19009B}
+		SolutionGuid = {8DD75C7F-EBF4-4FA3-83F1-F5CB27AA2B58}
 	EndGlobalSection
 EndGlobal

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3C32C61D-0975-4AF5-9A8B-53438AFC7848}</ProjectGuid>
+    <ProjectGuid>{4AE667CA-9DA2-49E2-8523-BDA0FC399588}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>HMT_01</RootNamespace>
-    <AssemblyName>HMT_01</AssemblyName>
+    <RootNamespace>ConsoleApp1</RootNamespace>
+    <AssemblyName>ConsoleApp1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

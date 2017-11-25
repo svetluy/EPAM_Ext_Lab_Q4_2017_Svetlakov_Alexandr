@@ -20,7 +20,7 @@ namespace Task02
                 var x = SquareRoot(h, out double a, out double b, out double c, out double D);
 
                 WriteLine($"a = {a:f5}, b = {b:f5}, c = {c:f5}, D = {D:f5}");
-                if (D > 0)
+                if (D >= 0)
                     foreach (var x0 in x)
                         WriteLine($"x={x0}");
             }

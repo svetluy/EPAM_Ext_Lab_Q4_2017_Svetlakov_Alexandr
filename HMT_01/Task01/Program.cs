@@ -30,90 +30,70 @@ namespace HMT_01
         private static void Belongs(double x, double y, string choice)
         {
             double distanceToZero = Sqrt(x * x + y * y);
+            bool answer = false;
             switch (choice)
             {
                 case "а":
-                    if (distanceToZero <= 1)
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = distanceToZero <= 1;
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "б":
-                    if (distanceToZero <= 1 && (distanceToZero >= 0.5))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = distanceToZero <= 1 && (distanceToZero >= 0.5);
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "в":
-                    if ((Abs(x) <= 1) && (Abs(y) <= 1))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = (Abs(x) <= 1) && (Abs(y) <= 1);
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "г":
-                    if ((Abs(x + y) <= 1) && (Abs(x - y) <= 1))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = (Abs(x + y) <= 1) && (Abs(x - y) <= 1);
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "д":
-                    if ((Abs(2 * x + y) <= 1) && (Abs(2 * x - y) <= 1))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = (Abs(2 * x + y) <= 1) && (Abs(2 * x - y) <= 1);
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "е":
                     bool tmp1 = (x - 2 * y >= -2) && (x + 2 * y >= -2) && (x >= -2 && x <= 0);//удовлетворяет неравенствам на отрезке [-2,0]
                     bool tmp2 = distanceToZero <= 1 && (x <= 1 && x >= 0);
-                    if (tmp1 || tmp2)//объединение множеств
-                            PositiveMessage(x, y, choice);
-                    else
-                            NegativeMessage(x, y, choice);
+                    answer = tmp1 || tmp2;//объединение множеств
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "ж":
-                    if ((2 * x + y <= 1) && (2 * x - y >= 1) && (y >= -1))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = (2 * x + y <= 1) && (2 * x - y >= 1) && (y >= -1);
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "з":
-                    if ((Abs(x) <= 1) && (Abs(y) <= 2)&&(y<=Abs(x)))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = (Abs(x) <= 1) && (Abs(y) <= 2) && (y <= Abs(x));
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "и":
                     bool tmp3 = ((y <= 2 * x + 3) && (y >= (x - 1) / 3) && y < 0);//принадлежность первому треугольнику
                     bool tmp4 = ((y <= 2 * x + 3) && (y + x <= 0) && y >= 0);//принадлежность второму треугольнику 
-
-                    if (tmp3 || tmp4)//принадлежность их объединению
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = tmp3 || tmp4;//принадлежность их объединению
+                    Answer(x, y, choice, answer);
                     break;
 
 
                 case "к":
-                    if (((y >= 1 && Abs(x) >= 1)) || (Abs(x) <= y))
-                        PositiveMessage(x, y, choice);
-                    else
-                        NegativeMessage(x, y, choice);
+                    answer = ((y >= 1 && Abs(x) >= 1)) || (Abs(x) <= y);
+                    Answer(x, y, choice, answer);
                     break;
 
 
@@ -121,6 +101,14 @@ namespace HMT_01
                     WriteLine("не верные данные");
                     break;
             }
+        }
+
+        private static void Answer(double x, double y, string choice, bool tmp)
+        {
+            if (tmp)
+                PositiveMessage(x, y, choice);
+            else
+                NegativeMessage(x, y, choice);
         }
 
         private static void NegativeMessage(double x, double y, string choice) => WriteLine($"Точка ({x:f3};{y:f3}) не принадлежит фигуре {choice};");

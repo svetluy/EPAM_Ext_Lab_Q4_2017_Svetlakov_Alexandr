@@ -12,17 +12,48 @@ namespace Task02
     {
         static void Main(string[] args)
         {
-            while(true)
+            bool cont = true;
+            while (cont)
             {
-                WriteLine("Введи h");
+                WriteLine("Enter h");
                 double.TryParse(ReadLine(), out double h);
 
                 var x = SquareRoot(h, out double a, out double b, out double c, out double D);
 
                 WriteLine($"a = {a:f5}, b = {b:f5}, c = {c:f5}, D = {D:f5}");
                 if (D >= 0)
+                {
                     foreach (var x0 in x)
+                    {
                         WriteLine($"x={x0}");
+                    }
+                }
+                else if (D==0)
+                {
+                    WriteLine($"x={x[0]}");
+                }
+                else
+                {
+                    WriteLine("There is no real roots");
+                }
+
+                while (cont)
+                {
+                    WriteLine("would like to continue?\n y - Yes \n n - No ");
+                    string choice = ReadLine();
+                    if (choice == "y")
+                    {
+                        break;
+                    }
+                    else if (choice == "n")
+                    {
+                        cont = false;
+                    }
+                    else
+                    {
+                        cont = true;
+                    }
+                }
             }
         }
 
@@ -34,20 +65,10 @@ namespace Task02
              c = a * h * h * Sin(b * h) + b * Pow(h, 3) * Cos(a * h);
 
              D = b * b - 4 * a * c;
-            if (D > 0)
-            {
-                x[0] = (-1 * b + Sqrt(D)) / 2 * a;
-                x[1] = (-1 * b - Sqrt(D)) / 2 * a;
 
-            }
-            else if (D == 0)
-            {
-                x[0] = (-1 * b + Sqrt(D)) / 2 * a;
-            }
-            else
-            {
-                WriteLine("Уравнение не имеет вещественных корней");
-            }
+             x[0] = (-1 * b + Sqrt(D)) / 2 * a;
+             x[1] = (-1 * b - Sqrt(D)) / 2 * a;
+
             return x;
         }
     }

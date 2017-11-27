@@ -12,18 +12,37 @@ namespace HMT_01
     {
         static void Main(string[] args)
         {
-            while(true)
+            bool cont = true;
+            while (cont)
             {
-                WriteLine("Введи х");
+                WriteLine("Enter х");
                 double.TryParse(ReadLine(), out double x);
 
-                WriteLine("Введи y");
+                WriteLine("Enter y");
                 double.TryParse(ReadLine(), out double y);
 
-                WriteLine("Выбери фигуру");
+                WriteLine("Choose figure");
                 string choice = ReadLine();
 
                 Belongs(x, y, choice);
+
+                while (cont)
+                {
+                    WriteLine("would like to continue?\n y - Yes \n n - No ");
+                    choice = ReadLine();
+                    if (choice == "y")
+                    {
+                        break;
+                    }
+                    else if (choice == "n")
+                    {
+                        cont = false;
+                    }
+                    else
+                    {
+                        cont = true;
+                    }
+                }
             }
         }
 
@@ -98,20 +117,13 @@ namespace HMT_01
 
 
                 default:
-                    WriteLine("не верные данные");
+                    WriteLine("Wrong input");
                     break;
             }
         }
 
-        private static void Answer(double x, double y, string choice, bool tmp)
-        {
-            if (tmp)
-                PositiveMessage(x, y, choice);
-            else
-                NegativeMessage(x, y, choice);
-        }
+        private static void Answer(double x, double y, string choice, bool tmp) =>  WriteLine($"Точка ({x:f3};{y:f3}) {Method(tmp)} принадлежит фигуре {choice};");
 
-        private static void NegativeMessage(double x, double y, string choice) => WriteLine($"Точка ({x:f3};{y:f3}) не принадлежит фигуре {choice};");
-        private static void PositiveMessage(double x, double y, string choice) => WriteLine($"Точка ({x:f3};{y:f3}) принадлежит фигуре {choice};");
+        private static string Method(bool tmp) => tmp ? "" : "не";
     }
 }

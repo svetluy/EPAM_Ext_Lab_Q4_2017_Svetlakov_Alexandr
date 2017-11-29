@@ -34,7 +34,7 @@ namespace Task_01
                     {
                         WriteLine($"S = {a}*{b} = {a * b}");
 
-                        WriteLine("Would you like to continue?\n y    - Yes\n else - NO");
+                        WriteLine("Would you like to continue?\n y    - Yes\n else - No");
                         condition = ReadLine() == "y" ? true : false;
                     }
                 }

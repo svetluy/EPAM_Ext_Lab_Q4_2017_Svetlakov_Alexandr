@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using static System.Console;
-using static Task_06.Logic;
-
-namespace Task_06
+﻿namespace Task_06
 {
-    class Program
+    using System;
+    using System.Collections.Generic;
+    using static System.Console;
+    using static Task_06.Logic;
+
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             ForegroundColor = ConsoleColor.DarkCyan;
             ConsoleKeyInfo key;
 
-            int boldKeyCounter=0, italicKeyCounter=0, underlineKeyCounter=0;
+            int boldKeyCounter = 0, italicKeyCounter = 0, underlineKeyCounter = 0;
             List<string> param = new List<string>();
 
             do

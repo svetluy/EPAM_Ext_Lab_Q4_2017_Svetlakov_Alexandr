@@ -17,13 +17,14 @@
 
             do
             {
-                CheckParams("None",param,param.Count==0);
+                CheckParams("None", param, param.Count == 0);
 
                 Write("Параметры надписи : ");
                 foreach (var p in param)
                 {
                     Write($"{p} ");
                 }
+
                 WriteLine();
 
                 WriteLine("Введите:\n\t1: bold\n\t2: italic\n\t3: underline");
@@ -31,7 +32,7 @@
                 if (key.Key == ConsoleKey.D1)
                 {
                     boldKeyCounter++;
-                    IsInList(boldKeyCounter,"Bold", param);
+                    IsInList(boldKeyCounter, "Bold", param);
                 }
                 else if (key.Key == ConsoleKey.D2)
                 {
@@ -49,7 +50,8 @@
                 }
 
                 WriteLine();
-            } while (true);
+            }
+            while (true);
         }
     }
 }

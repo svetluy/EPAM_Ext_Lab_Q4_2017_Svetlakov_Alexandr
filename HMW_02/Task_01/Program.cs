@@ -9,7 +9,7 @@ namespace Task_01
 {
     using static System.Console;
 
-    public class Program
+    public class Program//todo pn решение частной задачи
     {
         public static void Main(string[] args)
         {

@@ -27,15 +27,15 @@ namespace Task_02
                 {
                     for (int j = 0; j <= i; j++)
                     {
-                        Write("*");
+                        Write("*");//todo pn хардкод
                     }
 
                     WriteLine();
                 }
 
                 WriteLine("Would you like to continue?\n y    - Yes\n else - NO");
-                condition = ReadLine() == "y" ? true : false;
-            }
+                condition = ReadLine() == "y" ? true : false;//todo pn достаточно condition = ReadLine() == "y"
+			}
             while (condition);
         }
     }

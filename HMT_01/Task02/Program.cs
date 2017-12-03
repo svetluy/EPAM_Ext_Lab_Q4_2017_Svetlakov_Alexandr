@@ -7,6 +7,7 @@
 namespace Task02
 {
     using static System.Console;
+    using static System.Math;
 
     public class Program
     {
@@ -18,7 +19,11 @@ namespace Task02
                 WriteLine("Enter h");
                 double.TryParse(ReadLine(), out double h);
 
-                var x = Logic.SquareRoot(h, out double a, out double b, out double c, out double d);
+                double a = Sqrt((Abs(Sin(8 * h)) + 17) / Pow(1 - (Sin(4 * h) * Cos((h * h) + 18)), 2));
+                double b = 1 - Sqrt(3 / (3 + Abs(Tan(a * (h * h)) - Sin(a * h))));
+                double c = (a * (h * h) * Sin(b * h)) + (b * Pow(h, 3) * Cos(a * h));
+
+                var x = Logic.SquareRoot(a, b, c,out double d);
 
                 WriteLine($"a = {a:f5}, b = {b:f5}, c = {c:f5}, D = {d:f5}");
 

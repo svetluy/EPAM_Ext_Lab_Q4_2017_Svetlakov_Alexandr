@@ -1,8 +1,8 @@
-﻿// Написать программу, которая заменяет все положительные элементы
-// в трёхмерном массиве на нули.Число элементов в массиве и их тип
+﻿// Написать программу, которая определяет сумму неотрицательных
+// элементов в одномерном массиве.Число элементов в массиве и их тип
 // определяются разработчиком.
 
-namespace Task02
+namespace Task03
 {
     using static System.Console;
     using static Logic;
@@ -19,11 +19,7 @@ namespace Task02
                 WriteLine("Array");
                 WriteArr(arr);
 
-                WriteLine("Now replace positive\n");
-
-                ReplacePositive(arr);
-
-                WriteArr(arr);
+                WriteLine($"Sum positive values in array is {SumPositive(arr)}\n");
 
                 WriteLine("Would you like to continue?\n y - Yes\n else - No");
 

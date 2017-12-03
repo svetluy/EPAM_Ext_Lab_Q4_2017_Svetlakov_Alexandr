@@ -9,7 +9,7 @@ namespace Task_05
 
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args)//todo pn частное решение
         {
             int sum = 0;
             for (int i = 0; i < 1000; i++)

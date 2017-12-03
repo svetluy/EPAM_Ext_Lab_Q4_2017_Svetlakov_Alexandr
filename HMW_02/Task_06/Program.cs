@@ -51,7 +51,7 @@
 
                 WriteLine();
             }
-            while (true);
+            while (true);//todo pn а как выйти?
         }
     }
 }

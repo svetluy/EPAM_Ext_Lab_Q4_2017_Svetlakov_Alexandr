@@ -14,36 +14,32 @@ namespace Task_01
         public static void Main(string[] args)
         {
             int a, b;
-
             bool condition;
+
             do
             {
-                try
-                {
-                    WriteLine("Enter a");
-                    a = int.Parse(ReadLine());
-                    WriteLine("Enter b");
-                    b = int.Parse(ReadLine());
+                a = EnterData("Enter a");
+                b = EnterData("Enter b");
 
-                    if (a <= 0 || b <= 0)
-                    {
-                        WriteLine("a and b must be more then 0.");
-                        condition = true;
-                    }
-                    else
-                    {
-                        WriteLine($"S = {a}*{b} = {a * b}");
+                WriteLine($"S = {a}*{b} = {a * b}");
 
-                        WriteLine("Would you like to continue?\n y    - Yes\n else - No");
-                        condition = ReadLine() == "y" ? true : false;
-                    }
-                }
-                catch
-                {
-                    condition = true;
-                }
+                WriteLine("Would you like to continue?\n y    - Yes\n else - No");
+                condition = ReadLine() == "y" ? true : false;
             }
             while (condition);
+        }
+
+        private static int EnterData(string message)
+        {
+            int a;
+            do
+            {
+                WriteLine(message);
+                WriteLine("a and b must be more then 0.");
+                a = int.Parse(ReadLine());
+            }
+            while (a <= 0);
+            return a;
         }
     }
 }

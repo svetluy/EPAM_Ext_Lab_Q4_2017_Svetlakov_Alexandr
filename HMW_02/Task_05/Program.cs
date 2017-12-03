@@ -11,17 +11,28 @@ namespace Task_05
     {
         public static void Main(string[] args)//todo pn частное решение
         {
+            WriteLine($"Sum = {Sum(3, 5, 1000)}");
+            ReadKey();
+        }
+        /// <summary>
+        /// Cчитает сумму всех чисел меньше n, кратных a, или b.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private static int Sum(int a, int b,int n)
+        {
             int sum = 0;
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < n; i++)
             {
-                if (i % 5 == 0 || i % 3 == 0)
+                if (i % a == 0 || i % b == 0)
                 {
                     sum += i;
                 }
             }
 
-            WriteLine($"Sum = {sum}");
-            ReadKey();
+            return sum;
         }
     }
 }

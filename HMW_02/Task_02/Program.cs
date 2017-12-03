@@ -13,7 +13,6 @@ namespace Task_02
             ForegroundColor = System.ConsoleColor.DarkCyan;
 
             int n;
-            bool condition;
             do
             {
                 do
@@ -23,20 +22,25 @@ namespace Task_02
                 }
                 while (n <= 0);
 
-                for (int i = 0; i < n; i++)
-                {
-                    for (int j = 0; j <= i; j++)
-                    {
-                        Write("*");//todo pn хардкод
-                    }
-
-                    WriteLine();
-                }
+                WriteLine("Enter symbol");
+                WriteTriangle(n,ReadLine());
 
                 WriteLine("Would you like to continue?\n y    - Yes\n else - NO");
-                condition = ReadLine() == "y" ? true : false;//todo pn достаточно condition = ReadLine() == "y"
-			}
-            while (condition);
+            }
+            while (ReadLine() == "y");
+        }
+
+        private static void WriteTriangle(int n,string s)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Write(s);//todo pn хардкод
+                }
+
+                WriteLine();
+            }
         }
     }
 }

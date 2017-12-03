@@ -1,4 +1,4 @@
-﻿namespace Task01
+﻿namespace Task02
 {
     using static System.Console;
     using static Logic;
@@ -14,11 +14,11 @@
 
                 WriteArr(arr);
 
-                SortArr(arr);
+                WriteLine("Now replace positive\n");
+
+                ReplacePositive(arr);
 
                 WriteArr(arr);
-
-                WriteLine($"Max value in arr is {arr[arr.Length - 1]}\nMin value in arr is {arr[0]}");
 
                 WriteLine("Would you like to continue?\n y - Yes\n else - No");
 
@@ -27,6 +27,6 @@
                 WriteLine();
             }
             while (key.Key == System.ConsoleKey.Y);
-        } 
+        }
     }
 }

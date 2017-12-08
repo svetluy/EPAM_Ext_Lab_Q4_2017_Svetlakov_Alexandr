@@ -9,7 +9,7 @@
         {
             var sw = new Stopwatch();
             sw.Start();
-            Add(n, "*");
+            Add(n, "*");//todo pn хардкод
             sw.Stop();
             return sw.ElapsedMilliseconds;
         }
@@ -18,8 +18,8 @@
         {
             var sw = new Stopwatch();
             sw.Start();
-            AddSb(n, "*");
-            sw.Stop();
+            AddSb(n, "*");//todo pn хардкод
+			sw.Stop();
             return sw.ElapsedMilliseconds;
         }
 

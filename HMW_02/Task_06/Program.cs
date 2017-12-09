@@ -27,7 +27,7 @@
 
                 WriteLine();
 
-                WriteLine("Введите:\n\t1: bold\n\t2: italic\n\t3: underline");
+                WriteLine("Введите:\n\t1: bold\n\t2: italic\n\t3: underline\n\t4: exit");
                 key = ReadKey();
                 if (key.Key == ConsoleKey.D1)
                 {
@@ -51,7 +51,7 @@
 
                 WriteLine();
             }
-            while (true);//todo pn а как выйти?
+            while (key.Key != ConsoleKey.D4);//todo pn а как выйти?
         }
     }
 }

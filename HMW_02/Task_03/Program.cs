@@ -16,8 +16,6 @@ namespace Task_03
             bool condition = true;
             while (condition)
             {
-                int i, j;
-
                 do
                 {
                     WriteLine("Enter N");
@@ -25,23 +23,35 @@ namespace Task_03
                 }
                 while (n <= 0);
 
-                for (i = 0; i < n; i++)
-                {
-                    for (j = 0; j <= (n - i); j++)
-                    {
-                        Write(" ");
-                    }
-
-                    for (j = 0; j < (2 * i) + 1; j++)
-                    {
-                        Write("*");
-                    }
-
-                    WriteLine();
-                }
+                WriteTriangle(n, EnterString("Enter delimeter"), EnterString("Enter symbol"));
 
                 WriteLine("Would you like to continue?\n y    - Yes\n else - NO");
-                condition = ReadLine() == "y" ? true : false;
+                condition = ReadLine() == "y";
+            }
+        }
+
+        private static string EnterString(string message)
+        {
+            WriteLine(message);
+            return ReadLine();
+        }
+
+        private static void WriteTriangle(int n,string delimeter, string symbol)
+        {
+            int i, j;
+            for (i = 0; i < n; i++)
+            {
+                for (j = 0; j <= (n - i); j++)
+                {
+                    Write(delimeter);
+                }
+
+                for (j = 0; j < (2 * i) + 1; j++)
+                {
+                    Write(symbol);
+                }
+
+                WriteLine();
             }
         }
     }

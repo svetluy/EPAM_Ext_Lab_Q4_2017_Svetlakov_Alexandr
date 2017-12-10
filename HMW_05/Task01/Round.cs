@@ -4,6 +4,7 @@
 
     public class Round
     {
+
         private int _r;
 
         public int X { get; set; }
@@ -16,7 +17,6 @@
             {
                 if (value <= 0)
                 {
-                    //throw new ArgumentOutOfRangeException(nameof(value));
                     _r = 1;
                 }
 

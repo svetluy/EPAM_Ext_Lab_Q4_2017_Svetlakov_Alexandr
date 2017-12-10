@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Task03
+﻿namespace Task03
 {
     using System;
 
@@ -10,7 +8,7 @@ namespace Task03
         public string LastName { get; set; }
         public string SurName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public int Age { get;  }
+        public int Age { get; private set; }
 
         public User()
         {
@@ -27,8 +25,13 @@ namespace Task03
             LastName = lastName;
             SurName = surName;
             DateOfBirth = dateOfBirth;
-            int.TryParse((DateTime.Now - DateOfBirth).TotalDays.ToString(CultureInfo.CurrentCulture), out int daysDiff);
-            Age = daysDiff / 365;
+            float.TryParse(((DateTime.Now - DateOfBirth).TotalDays.ToString()), out float daysDiff);
+            Age = (int)(daysDiff / 365);
+        }
+
+        public override string ToString()
+        {
+            return $"User:\n Name :{Name}, LastName:{LastName}, Surname: {SurName}, Date of Birth : {DateOfBirth.ToShortDateString()}, Age: {Age}";
         }
     }
 }

@@ -5,12 +5,35 @@
     {
         public static void Main(string[] args)
         {
-            Triangle t1 = new Triangle(3,4,5);
-            WriteLine(t1);
-            WriteLine($"Perimeter = {t1.Perimeter}, Square = {t1.Square}");
-            Triangle t2 = new Triangle(2, -2, 1); // т.к такого треугольника не существует, его поля заполняются знач по умолчанию для теугольника
-            WriteLine(t2);
-            ReadKey();
+            System.ConsoleKeyInfo key = new System.ConsoleKeyInfo();
+            do
+            {
+                WriteLine("Enter triangle sides");
+                int a = EnterSides("Enter a, a>0");
+                int b = EnterSides("Enter b, b>0");
+                int c = EnterSides("Enter c, c>0");
+
+                Triangle t1 = new Triangle(a, b, c);
+                WriteLine(t1);
+                WriteLine($"Perimeter = {t1.Perimeter}, Square = {t1.Square:f3}");
+
+                WriteLine("Would you like to continue?\ny - yes\nelse - no");
+                key = ReadKey();
+                WriteLine();
+            }
+            while (key.Key == System.ConsoleKey.Y);
+        }
+
+        private static int EnterSides(string message)
+        {
+            int x;
+            do
+            {
+                WriteLine(message);
+                int.TryParse(ReadLine(), out x);
+            }
+            while (x <= 0);
+            return x;
         }
     }
 }

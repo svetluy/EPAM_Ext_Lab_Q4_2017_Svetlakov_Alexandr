@@ -72,11 +72,15 @@
         }
         public Triangle(int a, int b, int c)
         {
-            A = a;
-            B = b;
-            C = c;
-            if (!IsExist(_a,_b,_c))
+            if (IsExist(a,b,c))
             {
+                _a = a;
+                _b = b;
+                _c = c;
+            }
+            else
+            {
+                System.Console.WriteLine("Triangle isn't exist, stock values");
                 _a = 1;
                 _b = 1;
                 _c = 1;

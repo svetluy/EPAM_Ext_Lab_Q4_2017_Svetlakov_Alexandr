@@ -4,92 +4,99 @@
 
     public class Triangle
     {
-        private int _a;
-        private int _b;
-        private int _c;
+        private int a;
+        private int b;
+        private int c;
+
+        public Triangle()
+        {
+            this.a = 1;
+            this.b = 1;
+            this.c = 1;
+        }
+
+        public Triangle(int a, int b, int c)
+        {
+            if (IsExist(a, b, c))
+            {
+                this.a = a;
+                this.b = b;
+                this.c = c;
+            }
+            else
+            {
+                System.Console.WriteLine("Triangle isn't exist, stock values");
+                this.a = 1;
+                this.b = 1;
+                this.c = 1;
+            }
+        }
 
         public int A
         {
-            get => _a;
+            get => this.a;
             private set
             {
                 if (value <= 0)
                 {
-                    _a = 1;
-                    // throw new ArgumentOutOfRangeException(nameof(value));
+                    this.a = 1;
+                    //// throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _a = value;
+
+                this.a = value;
             }
         }
+
         public int B
         {
-            get => _b;
+            get => this.b;
             private set
             {
                 if (value <= 0)
                 {
-                    _b = 1;
+                    this.b = 1;
+
                     // throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _b = value;
+
+                this.b = value;
             }
         }
+
         public int C
         {
-            get => _c;
+            get => this.c;
             private set
             {
                 if (value <= 0)
                 {
-                    _c = 1;
-                    // throw new ArgumentOutOfRangeException(nameof(value));
+                    this.c = 1;
+                    //// throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _c = value;
+
+                this.c = value;
             }
         }
 
-        private static bool IsExist(int a, int b, int c)
-        {
-            return a < b + c && b < a + c && c < b + a;
-        }
-
-        public double Perimeter => _a + _b + _c;
+        public double Perimeter => this.a + this.b + this.c;
 
         public double Square
         {
             get
             {
-                double p = Perimeter / 2;
-                return Sqrt(p * (p - _a) * (p - _b) * (p - _c));
-            }
-        }
-
-        public Triangle()
-        {
-            _a = 1;
-            _b = 1;
-            _c = 1;
-        }
-        public Triangle(int a, int b, int c)
-        {
-            if (IsExist(a,b,c))
-            {
-                _a = a;
-                _b = b;
-                _c = c;
-            }
-            else
-            {
-                System.Console.WriteLine("Triangle isn't exist, stock values");
-                _a = 1;
-                _b = 1;
-                _c = 1;
+                double p = this.Perimeter / 2;
+                return Sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
             }
         }
 
         public override string ToString()
         {
-            return $"a = {_a}, b = {_b}, c = {_c}";
+            return $"a = {this.a}, b = {this.b}, c = {this.c}";
+        }
+
+        private static bool IsExist(int a, int b, int c)
+        {
+            return a < b + c && b < a + c && c < b + a;
         }
     }
 }

@@ -1,21 +1,18 @@
 ﻿namespace Task03
 {
     using System;
-    using static System.Console;
     using System.Collections.Generic;
-    using System.Text;
-    using System.Threading.Tasks;
+    using static System.Console;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            List <User> userList = new List<User>();
+            List<User> userList = new List<User>();
 
             ConsoleKeyInfo key = new ConsoleKeyInfo();
             do
             {
-                while (key.Key == System.ConsoleKey.Y) ;
                 WriteLine("Create new user");
                 string name = Enterdata("Enter name");
                 string lastName = Enterdata("Enter lastname");
@@ -32,7 +29,8 @@
                 WriteLine("Create new user?\ny - yes\nelse - no");
                 key = ReadKey();
                 WriteLine();
-            } while (key.Key == ConsoleKey.Y);
+            }
+            while (key.Key == ConsoleKey.Y);
         }
 
         private static string Enterdata(string message)

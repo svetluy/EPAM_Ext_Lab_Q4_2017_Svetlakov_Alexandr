@@ -21,7 +21,8 @@
                 {
                     WriteLine("Enter radius,r>0");
                     int.TryParse(ReadLine(), out r);
-                } while (r <= 0);
+                }
+                while (r <= 0);
 
                 Round r1 = new Round(x, y, r);
                 WriteLine(r1);
@@ -30,7 +31,8 @@
                 WriteLine("Would you like to continue?\ny - yes\nelse - no");
                 key = ReadKey();
                 WriteLine();
-            } while (key.Key == System.ConsoleKey.Y);
+            }
+            while (key.Key == System.ConsoleKey.Y);
         }
     }
 }

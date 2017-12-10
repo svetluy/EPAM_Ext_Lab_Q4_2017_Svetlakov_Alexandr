@@ -4,45 +4,46 @@
 
     public class Round
     {
-
-        private int _r;
-
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public int R
-        {
-            get => _r;
-            set
-            {
-                if (value <= 0)
-                {
-                    _r = 1;
-                }
-
-                if (value > 0)
-                {
-                    _r = value;
-                }
-            }
-        }
-
-        public double Сircumference() => PI * _r;
-        public double Square() => PI * Pow(_r,2);
+        private int r;
 
         public Round()
         {
-            X = 0;
-            Y = 0;
-            _r = 1;
+            this.X = 0;
+            this.Y = 0;
+            this.r = 1;
         }
 
         public Round(int x, int y, int r)
         {
-            X = x;
-            Y = y;
-            R = r;
+            this.X = x;
+            this.Y = y;
+            this.R = r;
         }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public int R
+        {
+            get => this.r;
+            set
+            {
+                if (value <= 0)
+                {
+                    this.r = 1;
+                }
+
+                if (value > 0)
+                {
+                    this.r = value;
+                }
+            }
+        }
+
+        public double Сircumference() => PI * this.r;
+
+        public double Square() => PI * Pow(this.r, 2);
 
         public override string ToString()
         {

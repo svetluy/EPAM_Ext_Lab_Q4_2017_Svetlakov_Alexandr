@@ -26,8 +26,8 @@
                 }
                 else
                 {
-                    this.innerR = 0;
-                }
+                    this.innerR = 0;//todo pn hardcode
+				}
             }
         }
 

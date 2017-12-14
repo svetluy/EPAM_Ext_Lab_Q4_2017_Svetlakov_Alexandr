@@ -8,18 +8,18 @@
         public int X
         {
             get => this.x;
-            set => this.x = value >= 0 ? value : 0;
-        }
+            set => this.x = value >= 0 ? value : 0;//todo pn hardcode
+		}
 
         public int Y
         {
             get => this.y;
-            set => this.y = value >= 0 ? value : 0;
-        }
+            set => this.y = value >= 0 ? value : 0;//todo pn hardcode
+		}
 
-        public virtual string Name => "Figure";
+        public virtual string Name => "Figure";//todo pn hardcode
 
-        public virtual int Width { get; set; }
+		public virtual int Width { get; set; }
 
         public virtual int Height { get; set; }
 

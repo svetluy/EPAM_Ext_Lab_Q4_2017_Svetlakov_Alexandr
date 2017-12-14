@@ -2,6 +2,6 @@
 {
     public class Rectangle : Figure
     {
-        public override string Name => "Rectangle";
-    }
+        public override string Name => "Rectangle";//todo pn hardcode
+	}
 }

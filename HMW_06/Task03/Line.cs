@@ -7,9 +7,9 @@
         private int height;
         private int width;
 
-        public override string Name => "Line";
+        public override string Name => "Line";//todo pn hardcode
 
-        public int DestinationX { get; set; }
+		public int DestinationX { get; set; }
 
         public int DestinationY { get; set; }
 

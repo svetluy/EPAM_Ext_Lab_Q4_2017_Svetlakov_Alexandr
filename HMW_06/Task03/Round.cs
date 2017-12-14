@@ -9,10 +9,10 @@
 
         public Round()
         {
-            this.X = 0;
-            this.Y = 0;
-            this.r = 1;
-        }
+            this.X = 0;//todo pn hardcode
+			this.Y = 0;//todo pn hardcode
+			this.r = 1;//todo pn hardcode
+		}
 
         public Round(int x, int y, int r)
         {
@@ -34,16 +34,16 @@
             }
         }
 
-        public override string Name => "Round";
+        public override string Name => "Round";//todo pn хардкод
 
-        public int R
+		public int R
         {
             get => this.r;
             private set
             {
                 if (value <= 0)
                 {
-                    this.r = 1;
+                    this.r = 1;//todo pn хардкод
                 }
 
                 if (value > 0)

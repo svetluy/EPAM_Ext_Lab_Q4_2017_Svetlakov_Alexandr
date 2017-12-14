@@ -14,9 +14,9 @@
             this.WorkExp = workExp;
         }
 
-        public int WorkExp { get; private set; }
+        public int WorkExp { get; private set; }//todo pn сделать датой
 
-        public string Seniority { get; private set; }
+		public string Seniority { get; private set; }
 
         public override string ToString()
         {

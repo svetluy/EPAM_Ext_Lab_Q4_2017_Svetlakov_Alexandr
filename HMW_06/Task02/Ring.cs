@@ -1,5 +1,4 @@
-﻿
-namespace Task02
+﻿namespace Task02
 {
     using System;
 

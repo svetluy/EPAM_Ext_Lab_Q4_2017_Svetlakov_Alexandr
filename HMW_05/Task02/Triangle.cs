@@ -10,10 +10,10 @@
 
         public Triangle()
         {
-            this.a = 1;
-            this.b = 1;
-            this.c = 1;
-        }
+            this.a = 1;//todo pn hardcode
+			this.b = 1;//todo pn hardcode
+			this.c = 1;//todo pn hardcode
+		}
 
         public Triangle(int a, int b, int c)
         {
@@ -25,11 +25,11 @@
             }
             else
             {
-                System.Console.WriteLine("Triangle isn't exist, stock values");
-                this.a = 1;
-                this.b = 1;
-                this.c = 1;
-            }
+                System.Console.WriteLine("Triangle isn't exist, stock values");//todo pn сильная связность
+				this.a = 1;//todo pn hardcode
+				this.b = 1;//todo pn hardcode
+				this.c = 1;//todo pn hardcode
+			}
         }
 
         public int A
@@ -39,9 +39,9 @@
             {
                 if (value <= 0)
                 {
-                    this.a = 1;
-                    //// throw new ArgumentOutOfRangeException(nameof(value));
-                }
+                    this.a = 1;//todo pn hardcode
+							   //// throw new ArgumentOutOfRangeException(nameof(value));
+				}
 
                 this.a = value;
             }
@@ -54,10 +54,10 @@
             {
                 if (value <= 0)
                 {
-                    this.b = 1;
+                    this.b = 1;//todo pn hardcode
 
-                    // throw new ArgumentOutOfRangeException(nameof(value));
-                }
+					// throw new ArgumentOutOfRangeException(nameof(value));
+				}
 
                 this.b = value;
             }
@@ -70,9 +70,9 @@
             {
                 if (value <= 0)
                 {
-                    this.c = 1;
-                    //// throw new ArgumentOutOfRangeException(nameof(value));
-                }
+                    this.c = 1;//todo pn hardcode
+							   //// throw new ArgumentOutOfRangeException(nameof(value));
+				}
 
                 this.c = value;
             }

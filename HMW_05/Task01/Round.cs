@@ -31,7 +31,7 @@
             {
                 if (value <= 0)
                 {
-                    this.r = 1;
+                    this.r = 1;//todo pn hardcode
                 }
 
                 if (value > 0)

@@ -6,12 +6,12 @@
     {
         public User()
         {
-            this.Name = "Unknown";
-            this.LastName = "Unknown";
-            this.SurName = "Unknown";
-            this.DateOfBirth = DateTime.Now;
-            this.Age = 0;
-        }
+            this.Name = "Unknown";//todo pn hardcode дублирование кода
+			this.LastName = "Unknown";//todo pn hardcode
+			this.SurName = "Unknown";//todo pn hardcode
+			this.DateOfBirth = DateTime.Now;//todo pn hardcode
+			this.Age = 0;//todo pn hardcode
+		}
 
         public User(string name, string surName, string lastName, DateTime dateOfBirth)
         {
@@ -20,7 +20,7 @@
             this.SurName = surName;
             this.DateOfBirth = dateOfBirth;
             float.TryParse((DateTime.Now - this.DateOfBirth).TotalDays.ToString(), out float daysDiff);
-            this.Age = (int)(daysDiff / 365);
+			this.Age = (int)(daysDiff / 365);
         }
 
         public string Name { get; set; }

@@ -6,7 +6,7 @@
     {
         public static void Main(string[] args)
         {
-            System.ConsoleKeyInfo key = new System.ConsoleKeyInfo();
+            System.ConsoleKeyInfo key;
             do
             {
                 int r = 0;

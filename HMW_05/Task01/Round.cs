@@ -4,13 +4,15 @@
 
     public class Round
     {
+        private const int StockValue = 1;
+
         private int r;
 
         public Round()
         {
             this.X = 0;
             this.Y = 0;
-            this.r = 1;
+            this.r = StockValue;
         }
 
         public Round(int x, int y, int r)
@@ -31,7 +33,7 @@
             {
                 if (value <= 0)
                 {
-                    this.r = 1;//todo pn hardcode
+                    this.r = StockValue; // исправил todo pn hardcode
                 }
 
                 if (value > 0)

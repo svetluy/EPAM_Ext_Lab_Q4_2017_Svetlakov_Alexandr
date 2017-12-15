@@ -4,6 +4,8 @@
 
     public class Ring : Round
     {
+        private const int StockInnerR = 0;
+
         private int innerR;
 
         public Ring()
@@ -26,8 +28,8 @@
                 }
                 else
                 {
-                    this.innerR = 0;//todo pn hardcode
-				}
+                    this.innerR = StockInnerR;
+                }
             }
         }
 

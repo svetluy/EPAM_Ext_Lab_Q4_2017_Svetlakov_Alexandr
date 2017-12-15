@@ -4,6 +4,8 @@
 
     public class Ring : Round
     {
+        private const string Name = "Ring";
+
         private int innerR;
 
         public int InnerR
@@ -18,15 +20,13 @@
             }
         }
 
-        public override string Name => "Ring";
-
         public override double Area => base.Area - (Math.PI * Math.Pow(this.InnerR, 2));
 
         public override double Length => base.Length + (2 * Math.PI * this.InnerR);
 
         public override string ToString()
         {
-            return $"x = {X}, y = {Y}, Radius = {R}, InnerRadius = {InnerR:f3}, Length = {Length:f3}, Area = {Area:f3}";
+            return $"Figure : {Name}, x = {X}, y = {Y}, Radius = {R}, InnerRadius = {InnerR:f3}, Length = {Length:f3}, Area = {Area:f3}";
         }
     }
 }

@@ -4,15 +4,16 @@
 
     public class Round : Figure
     {
+        private const int StockValue = 1;
+        private const string Name = "Round";
+
         private int r;
         private int width;
 
         public Round()
         {
-            this.X = 0;//todo pn hardcode
-			this.Y = 0;//todo pn hardcode
-			this.r = 1;//todo pn hardcode
-		}
+            this.r = StockValue;
+        }
 
         public Round(int x, int y, int r)
         {
@@ -34,16 +35,14 @@
             }
         }
 
-        public override string Name => "Round";//todo pn хардкод
-
-		public int R
+        public int R
         {
             get => this.r;
             private set
             {
                 if (value <= 0)
                 {
-                    this.r = 1;//todo pn хардкод
+                    this.r = StockValue;
                 }
 
                 if (value > 0)
@@ -59,7 +58,7 @@
 
         public override string ToString()
         {
-            return $"Round center: (x = {X}, y = {Y}), Radius = {R}, Length = {Length:f3}, Area = {Area:f3}";
+            return $"{Name} center: (x = {X}, y = {Y}), Radius = {R}, Length = {Length:f3}, Area = {Area:f3}";
         }
     }
 }

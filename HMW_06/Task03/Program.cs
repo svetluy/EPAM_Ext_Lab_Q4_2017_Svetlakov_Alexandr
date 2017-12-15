@@ -72,7 +72,7 @@
                 WriteLine($"Figures total {figures.Count}");
                 foreach (var figure in figures)
                 {
-                    WriteLine($"Figure: {figure.Name}\n{figure}");
+                    WriteLine(figure);
                 }
 
                 WriteLine("\nWould you like to create new figure?\nY - yes, else - no");

@@ -2,24 +2,13 @@
 {
     public abstract class Figure
     {
-        private int x;
-        private int y;
+        private const string Name = "Round";
 
-        public int X
-        {
-            get => this.x;
-            set => this.x = value >= 0 ? value : 0;//todo pn hardcode
-		}
+        public int X { get; set; }
 
-        public int Y
-        {
-            get => this.y;
-            set => this.y = value >= 0 ? value : 0;//todo pn hardcode
-		}
+        public int Y { get; set; }
 
-        public virtual string Name => "Figure";//todo pn hardcode
-
-		public virtual int Width { get; set; }
+        public virtual int Width { get; set; }
 
         public virtual int Height { get; set; }
 
@@ -29,7 +18,7 @@
 
         public override string ToString()
         {
-            return $"X = {X}, Y = {Y}, Width = {Width}, Heigth = {Height}, Area = {Area}, Perimeter = {Length}";
+            return $"Figure : {Name}, X = {X}, Y = {Y}, Width = {Width}, Heigth = {Height}, Area = {Area}, Perimeter = {Length}";
         }
     }
 }

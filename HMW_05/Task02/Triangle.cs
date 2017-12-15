@@ -4,16 +4,18 @@
 
     public class Triangle
     {
+        private const int StockValue = 1;
+
         private int a;
         private int b;
         private int c;
 
         public Triangle()
         {
-            this.a = 1;//todo pn hardcode
-			this.b = 1;//todo pn hardcode
-			this.c = 1;//todo pn hardcode
-		}
+            this.a = StockValue; // исправил
+            this.b = StockValue;
+            this.c = StockValue;
+        }
 
         public Triangle(int a, int b, int c)
         {
@@ -25,11 +27,11 @@
             }
             else
             {
-                System.Console.WriteLine("Triangle isn't exist, stock values");//todo pn сильная связность
-				this.a = 1;//todo pn hardcode
-				this.b = 1;//todo pn hardcode
-				this.c = 1;//todo pn hardcode
-			}
+                Message("Triangle isn't exist, stock values");
+                this.a = StockValue; // исправил
+                this.b = StockValue; // исправил
+                this.c = StockValue; // исправил
+            }
         }
 
         public int A
@@ -39,9 +41,9 @@
             {
                 if (value <= 0)
                 {
-                    this.a = 1;//todo pn hardcode
-							   //// throw new ArgumentOutOfRangeException(nameof(value));
-				}
+                    this.a = StockValue; // исправил
+                                        //// throw new ArgumentOutOfRangeException(nameof(value));
+                }
 
                 this.a = value;
             }
@@ -54,10 +56,9 @@
             {
                 if (value <= 0)
                 {
-                    this.b = 1;//todo pn hardcode
-
-					// throw new ArgumentOutOfRangeException(nameof(value));
-				}
+                    this.b = StockValue; // исправил todo pn hardcode
+                    // throw new ArgumentOutOfRangeException(nameof(value));
+                }
 
                 this.b = value;
             }
@@ -70,17 +71,17 @@
             {
                 if (value <= 0)
                 {
-                    this.c = 1;//todo pn hardcode
-							   //// throw new ArgumentOutOfRangeException(nameof(value));
-				}
-
+                    this.c = StockValue; // исправил
+                    //// throw new ArgumentOutOfRangeException(nameof(value));
+                }
+                
                 this.c = value;
             }
         }
 
         public double Perimeter => this.a + this.b + this.c;
 
-        public double Square
+        public double Area
         {
             get
             {
@@ -97,6 +98,11 @@
         private static bool IsExist(int a, int b, int c)
         {
             return a < b + c && b < a + c && c < b + a;
+        }
+
+        private static void Message(string message)
+        {
+            System.Console.WriteLine(message);
         }
     }
 }

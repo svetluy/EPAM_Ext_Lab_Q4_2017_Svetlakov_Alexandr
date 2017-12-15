@@ -6,7 +6,7 @@
     {
         public static void Main(string[] args)
         {
-            System.ConsoleKeyInfo key = new System.ConsoleKeyInfo();
+            System.ConsoleKeyInfo key;
             do
             {
                 WriteLine("Enter triangle sides");
@@ -16,7 +16,7 @@
 
                 Triangle t1 = new Triangle(a, b, c);
                 WriteLine(t1);
-                WriteLine($"Perimeter = {t1.Perimeter}, Square = {t1.Square:f3}");
+                WriteLine($"Perimeter = {t1.Perimeter}, Area = {t1.Area:f3}");
 
                 WriteLine("Would you like to continue?\ny - yes\nelse - no");
                 key = ReadKey();

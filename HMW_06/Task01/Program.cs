@@ -42,7 +42,8 @@ namespace Task01
                         lastName = Enterdata("Enter lastname");
                         surName = Enterdata("Enter surname");
                         DateTime.TryParse(Enterdata("Enter date of birth"), out dateOfBirth);
-                        int.TryParse(Enterdata("Enter work experience"), out int workExp);
+                        int.TryParse(Enterdata("Enter work experience in months"), out int workExp1);
+                        TimeSpan workExp = new TimeSpan(workExp1 * 30, 0, 0, 0);
                         var seniority = Enterdata("Enter seniority");
                         Employee emp = new Employee(name, surName, lastName, dateOfBirth, workExp, seniority);
                         userList.Add(emp);

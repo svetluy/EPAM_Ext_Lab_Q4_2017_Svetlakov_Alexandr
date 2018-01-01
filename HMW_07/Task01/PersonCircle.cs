@@ -23,17 +23,19 @@ namespace Task01
 
         public int RemovePersons()
         {
-            do
+            bool remove = false;
+            while (this.persons.Count != 1)
             {
-                for (int i = 0; i < this.persons.Count ; i++)
+                for (int i = 0; i < persons.Count; i++)
                 {
-                    if((i+1) % 2 == 0)
+                    if (remove)
                     {
-                        this.persons.RemoveAt(i);
+                        persons.RemoveAt(i--);
                     }
+
+                    remove = !remove;
                 }
             }
-            while (this.persons.Count != 1);
             return this.persons[0];
         }
     }

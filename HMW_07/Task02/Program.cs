@@ -13,7 +13,7 @@
 
             foreach (var word in words)
             {
-                WriteLine($"The word \"{word.Key}\" in the text occurs {word.Value} times");
+                WriteLine($"The word \"{word.Key}\" occurs in the text {word.Value} times");
             }
 
             ReadKey();

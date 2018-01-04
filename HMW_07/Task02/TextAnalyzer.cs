@@ -26,14 +26,17 @@
             {
                 foreach (var word in this.words)
                 {
-                    string keyWord = word.ToLower();
-                    if (!numberOfWords.ContainsKey(keyWord))
+                    if (word != string.Empty)
                     {
-                        numberOfWords.Add(keyWord, 1);
-                    }
-                    else
-                    {
-                        numberOfWords[keyWord]++;
+                        string keyWord = word.ToLower();
+                        if (!numberOfWords.ContainsKey(keyWord))
+                        {
+                            numberOfWords.Add(keyWord, 1);
+                        }
+                        else
+                        {
+                            numberOfWords[keyWord]++;
+                        }
                     }
                 }
             }

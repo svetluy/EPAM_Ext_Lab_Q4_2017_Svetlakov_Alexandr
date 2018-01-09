@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Task_03
+﻿namespace Task_03
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static class FindInArr
     {
-        delegate List<int> FindMethod(int item, Compare del);
+        public delegate bool Compare(int item1, int item2);
 
         public static List<int> FindEqual(this int[] arr, int item)
         {
@@ -17,10 +17,10 @@ namespace Task_03
                     result.Add(item);
                 }
             }
+
             return result;
         }
 
-        public delegate bool Compare(int item1, int item2);
         public static List<int> FindEqualThrouDel(this int[] arr, int item, Compare del)
         {
             List<int> result = new List<int>();
@@ -45,6 +45,7 @@ namespace Task_03
             {
                 result.Add(n);
             }
+
             return result;
         }
     }

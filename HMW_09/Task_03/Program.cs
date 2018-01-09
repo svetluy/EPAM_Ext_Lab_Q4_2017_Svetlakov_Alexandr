@@ -1,8 +1,8 @@
 ﻿namespace Task_03
 {
     using System;
-    using static FindMethods;
     using static System.Console;
+    using static FindMethods;
 
     public class Program
     {

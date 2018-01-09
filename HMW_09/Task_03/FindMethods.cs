@@ -1,14 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace Task_03
+﻿namespace Task_03
 {
+    using System;
+    using System.Diagnostics;
+
     public static class FindMethods
     {
-        public static long MedianLinq(int Retries, int[] test)
+        public static long MedianLinq(int retries, int[] test)
         {
-            var sw4Arr = new long[Retries];
-            for (int i = 0; i < Retries; i++)
+            var sw4Arr = new long[retries];
+            for (int i = 0; i < retries; i++)
             {
                 var sw4 = new Stopwatch();
                 sw4.Start();
@@ -16,14 +16,15 @@ namespace Task_03
                 sw4.Stop();
                 sw4Arr[i] = sw4.ElapsedTicks;
             }
-            Array.Sort(sw4Arr);
-            return sw4Arr[Retries / 2];
-        }// так и не понял, как метод расширения в делегат запихать 
 
-        public static long MedianLambaDel(int Retries, int[] test)
+            Array.Sort(sw4Arr);
+            return sw4Arr[retries / 2];
+        }  // так и не понял, как метод расширения в делегат запихать 
+
+        public static long MedianLambaDel(int retries, int[] test)
         {
-            var sw3Arr = new long[Retries];
-            for (int i = 0; i < Retries; i++)
+            var sw3Arr = new long[retries];
+            for (int i = 0; i < retries; i++)
             {
                 var sw3 = new Stopwatch();
                 sw3.Start();
@@ -31,30 +32,32 @@ namespace Task_03
                 sw3.Stop();
                 sw3Arr[i] = sw3.ElapsedTicks;
             }
+
             Array.Sort(sw3Arr);
-            return sw3Arr[Retries / 2];
+            return sw3Arr[retries / 2];
         }
 
-        public static long MedianAnonDel(int Retries, int[] test)
+        public static long MedianAnonDel(int retries, int[] test)
         {
-            var sw2Arr = new long[Retries];
-            for (int i = 0; i < Retries; i++)
+            var sw2Arr = new long[retries];
+            for (int i = 0; i < retries; i++)
             {
                 var sw2 = new Stopwatch();
                 sw2.Start();
-                test.FindEqualThrouDel(5, delegate (int x, int y) { return x == y; });
+                test.FindEqualThrouDel(5, delegate(int x, int y) { return x == y; });
                 sw2.Stop();
                 sw2Arr[i] = sw2.ElapsedTicks;
             }
+
             Array.Sort(sw2Arr);
-            return sw2Arr[Retries / 2];
+            return sw2Arr[retries / 2];
         }
 
-        public static long MedianDel(int Retries, int[] test)
+        public static long MedianDel(int retries, int[] test)
         {
-            var sw1Arr = new long[Retries];
+            var sw1Arr = new long[retries];
             var compDel = new FindInArr.Compare(Equal);
-            for (int i = 0; i < Retries; i++)
+            for (int i = 0; i < retries; i++)
             {
                 var sw1 = new Stopwatch();
                 sw1.Start();
@@ -64,23 +67,23 @@ namespace Task_03
             }
 
             Array.Sort(sw1Arr);
-            return sw1Arr[Retries / 2];
+            return sw1Arr[retries / 2];
         }
 
-        public static long Median(int Retries, int[] test)
+        public static long Median(int retries, int[] test)
         {
-            var swArr = new long[Retries];
-            for (int i = 0; i < Retries; i++)
+            var arr = new long[retries];
+            for (int i = 0; i < retries; i++)
             {
                 var sw = new Stopwatch();
                 sw.Start();
                 test.FindEqual(5);
                 sw.Stop();
-                swArr[i] = sw.ElapsedTicks;
+                arr[i] = sw.ElapsedTicks;
             }
 
-            Array.Sort(swArr);
-            return swArr[Retries / 2];
+            Array.Sort(arr);
+            return arr[retries / 2];
         }
 
         public static bool Equal(int item1, int item2)
@@ -89,4 +92,3 @@ namespace Task_03
         }
     }
 }
-

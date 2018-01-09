@@ -9,6 +9,7 @@
             {
                 sum += arr[i];
             }
+
             return sum;
         }
     }

@@ -20,8 +20,8 @@
 
         public static void PersonCame(Person sender, PersonEventArgs e)
         {
-            WriteLine($"{sender.Name} came");
-            greetByUs?.Invoke(sender.Name);
+            WriteLine($"{sender.Name} came");//todo pn хардкод. ну и помнишь про IConsole? было бы здорово реализовать таким образом.
+			greetByUs?.Invoke(sender.Name);
             if (e.Date.Hour > 0 && e.Date.Hour < 13)
             {
                 greetByUs += sender.MorningGreet;
@@ -40,8 +40,8 @@
 
         public static void PersonLeft(Person sender, PersonEventArgs e)
         {
-            WriteLine($"{sender.Name} left");
-            if (goodbye != null)
+            WriteLine($"{sender.Name} left");//todo pn хардкод
+			if (goodbye != null)
             {
                 goodbye -= sender.Goodbye;
                 goodbye?.Invoke(sender.Name);
@@ -62,22 +62,22 @@
 
         private void Goodbye(string personName)
         {
-            WriteLine($"\'Goodbye, {personName}\', - {Name} said.");
+            WriteLine($"\'Goodbye, {personName}\', - {Name} said.");//todo pn хардкод
         }
 
         private void MorningGreet(string personName)
         {
-            WriteLine($"\'Good morning, {personName}\', - {Name} said.");
-        }
+            WriteLine($"\'Good morning, {personName}\', - {Name} said.");//todo pn хардкод
+		}
 
         private void AfternoonGreet(string personName)
         {
-            WriteLine($"\'Good aftrenoon, {personName}\', - {Name} said.");
-        }
+            WriteLine($"\'Good aftrenoon, {personName}\', - {Name} said.");//todo pn хардкод
+		}
 
         private void EveningGreet(string personName)
         {
-            WriteLine($"\'Good evening, {personName}\', - {Name} said.");
-        }
+            WriteLine($"\'Good evening, {personName}\', - {Name} said.");//todo pn хардкод
+		}
     }
 }

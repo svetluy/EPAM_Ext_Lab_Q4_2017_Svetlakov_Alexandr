@@ -21,7 +21,7 @@
             }
         }
 
-        public static void Sort(string[] strings, Сomparison del)
+        public static void Sort(string[] strings, Сomparison del)//todo pn давай уже не пузырьком сортировать?
         {
             for (int i = 0; i < strings.Length - 1; i++)
             {

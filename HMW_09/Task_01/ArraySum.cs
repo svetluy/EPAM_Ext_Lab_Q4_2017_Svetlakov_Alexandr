@@ -7,7 +7,7 @@
             int sum = 0;
             for (int i = 0; i < arr.Length; i++)
             {
-                sum += arr[i];
+                sum += arr[i]; //todo pn можно и LINQ заиспользовать
             }
 
             return sum;

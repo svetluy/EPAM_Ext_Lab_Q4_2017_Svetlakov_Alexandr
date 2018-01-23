@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DynamicArray<T> : IEnumerable<T>
+    public class DynamicArray<T> : IEnumerable<T>//todo pn круто, а тесты на все методы?) лучше отдельным классом
     {
         private const int N = 8;
         private const int Multiplier = 2;

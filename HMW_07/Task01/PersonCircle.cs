@@ -11,7 +11,7 @@
             this.persons = this.CreatePersons(n);
         }
 
-        public int RemovePersons()
+        public int RemovePersons()//todo pn придираюсь, но можно было погуглить более оптимальное решение. Задача Иосифа.
         {
             bool remove = false;
             while (this.persons.Count != 1)

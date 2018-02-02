@@ -6,13 +6,13 @@
     {
         public static bool СomparisonMethod(string s1, string s2)
         {
-            if (s1.Length > s2.Length)
+            if (s1.Length < s2.Length)
             {
                 return true;
             }
             else
             {
-                if (string.Compare(s1, s2) > 0)
+                if (string.Compare(s1, s2) < 0)
                 {
                     return true;
                 }
@@ -21,19 +21,40 @@
             }
         }
 
-        public static void Sort(string[] strings, Сomparison del)//todo pn давай уже не пузырьком сортировать?
+        public static void Sort(string[] strings, Сomparison del, int first, int last) // заменил на быструю сортировку
         {
-            for (int i = 0; i < strings.Length - 1; i++)
+            int f = first, l = last;
+            var mid = strings[(f + l) / 2];
+            do
             {
-                for (int j = i + 1; j < strings.Length; j++)
+                while (del(strings[f], mid))
                 {
-                    if (del(strings[i], strings[j]))
-                    {
-                        var temp = strings[i];
-                        strings[i] = strings[j];
-                        strings[j] = temp;
-                    }
+                    f++;
                 }
+
+                while (del(mid, strings[l]))
+                {
+                    l--;
+                }
+
+                if (f <= l)
+                {
+                    var count = strings[f];
+                    strings[f] = strings[l];
+                    strings[l] = count;
+                    f++;
+                    l--;
+                }
+            }
+            while (f < l);
+            if (first < l)
+            {
+                Sort(strings, del, first, l);
+            }
+
+            if (f < last)
+            {
+                Sort(strings, del, f, last);
             }
         }
     }

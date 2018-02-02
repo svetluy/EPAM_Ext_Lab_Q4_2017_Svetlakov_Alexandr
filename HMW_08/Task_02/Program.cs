@@ -13,7 +13,7 @@
             john.OnCame();
             bill.OnCame();
             hugo.OnCame();
-            
+
             john.OnLeft();
             bill.OnLeft();
             hugo.OnLeft();

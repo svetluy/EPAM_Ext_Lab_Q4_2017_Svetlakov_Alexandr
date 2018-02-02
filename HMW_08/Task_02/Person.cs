@@ -20,28 +20,17 @@
 
         public static void PersonCame(Person sender, PersonEventArgs e)
         {
-            WriteLine($"{sender.Name} came");//todo pn хардкод. ну и помнишь про IConsole? было бы здорово реализовать таким образом.
-			greetByUs?.Invoke(sender.Name);
-            if (e.Date.Hour > 0 && e.Date.Hour < 13)
-            {
-                greetByUs += sender.MorningGreet;
-            }
-            else if (e.Date.Hour > 12 && e.Date.Hour < 17)
-            {
-                greetByUs += sender.AfternoonGreet;
-            }
-            else
-            {
-                greetByUs += sender.EveningGreet;
-            }
+            WriteLine($"{sender.Name} came"); // todo pn хардкод. ну и помнишь про IConsole? было бы здорово реализовать таким образом.
+            greetByUs?.Invoke(sender.Name);
+            greetByUs += sender.Greet;
 
             goodbye += sender.Goodbye;
         }
 
         public static void PersonLeft(Person sender, PersonEventArgs e)
         {
-            WriteLine($"{sender.Name} left");//todo pn хардкод
-			if (goodbye != null)
+            WriteLine($"{sender.Name} left"); // todo pn хардкод
+            if (goodbye != null)
             {
                 goodbye -= sender.Goodbye;
                 goodbye?.Invoke(sender.Name);
@@ -62,22 +51,23 @@
 
         private void Goodbye(string personName)
         {
-            WriteLine($"\'Goodbye, {personName}\', - {Name} said.");//todo pn хардкод
+            WriteLine($"\'Goodbye, {personName}\', - {Name} said."); // todo pn хардкод
         }
 
-        private void MorningGreet(string personName)
+        private void Greet(string personName)
         {
-            WriteLine($"\'Good morning, {personName}\', - {Name} said.");//todo pn хардкод
-		}
-
-        private void AfternoonGreet(string personName)
-        {
-            WriteLine($"\'Good aftrenoon, {personName}\', - {Name} said.");//todo pn хардкод
-		}
-
-        private void EveningGreet(string personName)
-        {
-            WriteLine($"\'Good evening, {personName}\', - {Name} said.");//todo pn хардкод
+            if (DateTime.Now.Hour > 0 && DateTime.Now.Hour < 13)
+            {
+                WriteLine($"\'Good morning, {personName}\', - {Name} said.");
+            }
+            else if (DateTime.Now.Hour > 12 && DateTime.Now.Hour < 17)
+            {
+                WriteLine($"\'Good aftrenoon, {personName}\', - {Name} said.");
+            }
+            else
+            {
+                WriteLine($"\'Good evening, {personName}\', - {Name} said.");
+            }
 		}
     }
 }

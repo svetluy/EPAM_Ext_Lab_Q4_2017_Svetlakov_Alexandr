@@ -5,6 +5,13 @@
 
     public class Person
     {
+        private const string CameMes = "{0} came.",
+            LeftMes = "{0} left.",
+            GoodbyeMes = "\'Goodbye, {0}\', - {1} said",
+            MorningGreet = "\'Good morning, {0}\', - {1} said.",
+            AfternoonGreet = "\'Good afternoon, {0}\', - {1} said.",
+            EveningGreet = "\'Good evening, {0}\', - {1} said.";
+
         private static Message greetByUs;
         private static Message goodbye;
 
@@ -20,7 +27,7 @@
 
         public static void PersonCame(Person sender, PersonEventArgs e)
         {
-            WriteLine($"{sender.Name} came"); // todo pn хардкод. ну и помнишь про IConsole? было бы здорово реализовать таким образом.
+            WriteLine(CameMes, sender.Name); // todo pn хардкод. ну и помнишь про IConsole? было бы здорово реализовать таким образом.
             greetByUs?.Invoke(sender.Name);
             greetByUs += sender.Greet;
 
@@ -29,7 +36,7 @@
 
         public static void PersonLeft(Person sender, PersonEventArgs e)
         {
-            WriteLine($"{sender.Name} left"); // todo pn хардкод
+            WriteLine(LeftMes, sender.Name); // todo pn хардкод
             if (goodbye != null)
             {
                 goodbye -= sender.Goodbye;
@@ -51,23 +58,23 @@
 
         private void Goodbye(string personName)
         {
-            WriteLine($"\'Goodbye, {personName}\', - {Name} said."); // todo pn хардкод
+            WriteLine(GoodbyeMes, personName, this.Name); // todo pn хардкод
         }
 
         private void Greet(string personName)
         {
             if (DateTime.Now.Hour > 0 && DateTime.Now.Hour < 13)
             {
-                WriteLine($"\'Good morning, {personName}\', - {Name} said.");
+                WriteLine(MorningGreet, personName, this.Name);
             }
             else if (DateTime.Now.Hour > 12 && DateTime.Now.Hour < 17)
             {
-                WriteLine($"\'Good aftrenoon, {personName}\', - {Name} said.");
+                WriteLine(AfternoonGreet, personName, this.Name);
             }
             else
             {
-                WriteLine($"\'Good evening, {personName}\', - {Name} said.");
+                WriteLine(EveningGreet, personName, this.Name);
             }
-		}
+        }
     }
 }

@@ -1,0 +1,14 @@
+﻿ul {
+    width: 200px;
+    margin: 10px;
+    background-color: rgb(250, 228, 152);
+    list-style: none;
+    padding: 10px;
+    border-style: groove;
+    border-radius: 10px;
+    box-shadow:rgba(115, 25, 25, 0.92) 5px 5px;
+}
+
+li {
+    color: darkred;
+}

@@ -1,0 +1,89 @@
+﻿header{
+    border-style: solid;
+    border-width:1px;
+   
+}
+.main{
+    position: relative;
+    border-style: solid;
+    border-width:0.5px;
+    display: inline-block;
+   margin: 0px;
+}
+table {
+    width: 100%; 
+    border-collapse: collapse;
+   
+   }
+   td, th {
+    padding: 3px;
+    border: 1px solid black; 
+   }
+div header {
+    padding: 3%;
+    height:100px;
+}
+#head {
+    padding-left:30%;
+}
+
+.col-1{
+    
+    width: 100%;
+    float: left;
+}
+
+.col-1-5 {
+    margin: 5px;
+    position: relative;
+    width: 20%;
+    height: 100%;
+    float: left;
+    min-width:120px;
+}
+
+.col-3-5 {
+    border-style: solid;
+    border-width:1px;
+    width: 55%;   
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+}
+
+#menu {
+    list-style:none;
+    padding-left:0px;
+}
+
+.col-3-5 p {
+    text-indent: 5%;
+}
+
+.col-3-5 img {
+    width:50%;
+    height:100%;
+    float: right;
+    margin: 5% 5%;
+}
+
+.col-1-5 input {
+    width:80%;
+}
+
+#checkbox {
+    margin-left:-15px;
+    display: inline-flex;
+}
+footer{
+    margin: 0%;
+    position: relative;
+    border-style: solid;
+    border-width:1px;
+    width: 100%;
+}
+#button {
+    width:80%;
+    border-radius:5px;
+    
+}

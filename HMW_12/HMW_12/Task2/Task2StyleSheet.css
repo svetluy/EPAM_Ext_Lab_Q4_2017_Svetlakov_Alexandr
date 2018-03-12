@@ -1,0 +1,37 @@
+﻿form {
+    width: 340px;
+    height: 210px;
+    padding: 30px;
+    background-color: rgb(6, 144, 207);
+    border-style: double;
+}
+
+#button {
+    background-color:yellow;
+}
+.container {
+    width: 100%;
+    padding: 0 0;
+    margin: 0 auto;
+}
+
+label {
+    font-weight:900;
+    color: white;
+}
+
+hr {
+    width: 117%;
+    position: relative;
+    left: -9%;
+}
+.col-1-2 {
+    width: 50%;
+    float: left;
+}
+
+.col-1 {
+    width: 100%;
+    float: left;
+}
+

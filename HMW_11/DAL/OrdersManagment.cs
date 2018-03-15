@@ -12,14 +12,14 @@
 
         public List<object> GetOrders()
         {
-            const int ColumnsCount = 15;
+            const int ColumnsCount = 15;//todo pn нафига он тебе?
             var orders = new List<object>();
             using (IDbConnection connection = new SqlConnection(this.connectionString))
             {
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM Northwind.Orders";
+                command.CommandText = "SELECT * FROM Northwind.Orders";//todo pn я говорил, что * не используем, а перечисляем поля руками
 
-                connection.Open();
+				connection.Open();
                 IDataReader reader = command.ExecuteReader();
                 OrderStatus orderStatus;
                 var values = new object[ColumnsCount + 1];
@@ -58,7 +58,7 @@
                 const int ColumnsCount = 10;
                 var command = connection.CreateCommand();
                 command.CommandText = $@"select
-                                         OD.*,ProductName
+                                         OD.*,ProductName//todo pn я говорил, что * не используем, а перечисляем поля руками
                                          from Northwind.[Order Details] as OD 
                                          inner join Northwind.Products as prod 
                                          on OD.ProductID = prod.ProductID  
@@ -122,8 +122,8 @@
                     if (values[0].ToString() == string.Empty)
                     {
                         command = connection.CreateCommand();
-                        command.CommandText = $"update Northwind.Orders set OrderDate = ({newDate.ToString("o")}) where OrderID = {orderID};";
-                        connection.Open();
+                        command.CommandText = $"update Northwind.Orders set OrderDate = ({newDate.ToString("o")}) where OrderID = {orderID};";//todo pn я говорил использовать параметры, а не вставлять в строку значения
+						connection.Open();
                         command.ExecuteNonQuery();
                     }
                     else if (values[1].ToString() == string.Empty)

@@ -4,43 +4,106 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data;
+    using System.Data.Common;
     using System.Data.SqlClient;
-    
+
     public class OrdersManagment
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString;
+        private const string GetOrdersDBCommand = "select OrderID, " +
+                                                    "CustomerID, " +
+                                                    "EmployeeID, " +
+                                                    "OrderDate, " +
+                                                    "RequiredDate, " +
+                                                    "ShippedDate, " +
+                                                    "ShipVia,Freight, " +
+                                                    "ShipName, " +
+                                                    "ShipAddress," +
+                                                    "ShipCity," +
+                                                    "ShipRegion, " +
+                                                    "ShipPostalCode," +
+                                                    "ShipCountry " +
+                                                    "from Northwind.Orders;";
+
+        private const string GetOrderInfoDBCommand = "select OrderID," +
+                                                    "OD.ProductID," +
+                                                    "OD.UnitPrice," +
+                                                    "Quantity," +
+                                                    "Discount," +
+                                                    "ProductName " +
+                                                    "from Northwind.[Order Details] as OD " +
+                                                    "inner join Northwind.Products as prod " +
+                                                    "on OD.ProductID = prod.ProductID " +
+                                                    "where OrderID = {0};";
+
+        private const string CreateNewOrderDBInsertCommand = "insert into Northwind.Orders values ('{0}', {1},@OrderDate, @RequiueredDate," +
+                                                                            " @ShippedDate, {2}, @Freight, '{3}', '{4}'," +
+                                                                               "'{5}', '{6}', {7}, '{8}');";
+
+        private const string CreateNewOrderDBSelectCommand = "select top 1 OrderID, " +
+                                                            "CustomerID, " +
+                                                            "EmployeeID, " +
+                                                            "OrderDate, " +
+                                                            "RequiredDate, " +
+                                                            "ShippedDate, " +
+                                                            "ShipVia,Freight, " +
+                                                            "ShipName, " +
+                                                            "ShipAddress," +
+                                                            "ShipCity," +
+                                                            "ShipRegion, " +
+                                                            "ShipPostalCode," +
+                                                            "ShipCountry " +
+                                                            "from Northwind.Orders " +
+                                                            "order by OrderID desc";
+
+        private const string SetOrderCompleteDBSelectCommand = "SELECT ShippedDate FROM Northwind.Orders where OrderID = @OrderID";
+
+        private const string SetOrderCompleteDBUpdateCommand = "update Northwind.Orders set ShippedDate = @Date where OrderID = @OrderID;";
+
+        private const string SetOrderInWorkDBSelectCommand = "SELECT OrderDate FROM Northwind.Orders where OrderID = @OrderID";
+
+        private const string SetOrderInWorkDBUpdateCommand = "update Northwind.Orders set OrderDate = @Date where OrderID = @OrderID";
+
+        private DbConnection CreateConnection()
+        {
+            var connectionStringItem = ConfigurationManager.ConnectionStrings["NorthwindConnection"];
+            var connectionString = connectionStringItem.ConnectionString;
+            var providerName = connectionStringItem.ProviderName;
+            var factory = DbProviderFactories.GetFactory(providerName);
+            var connection = factory.CreateConnection();
+            connection.ConnectionString = connectionString;
+            return connection;
+        }
 
         public List<object> GetOrders()
         {
-            const int ColumnsCount = 15;//todo pn нафига он тебе?
             var orders = new List<object>();
-            using (IDbConnection connection = new SqlConnection(this.connectionString))
+            using (var connection = this.CreateConnection())
             {
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM Northwind.Orders";//todo pn я говорил, что * не используем, а перечисляем поля руками
+                command.CommandText = GetOrdersDBCommand;
 
-				connection.Open();
+                connection.Open();
                 IDataReader reader = command.ExecuteReader();
                 OrderStatus orderStatus;
-                var values = new object[ColumnsCount + 1];
                 while (reader.Read())
                 {
+                    var values = new object[reader.FieldCount];
                     reader.GetValues(values);
 
                     if (values[5].ToString() == string.Empty)
                     {
                         orderStatus = (OrderStatus)1;
-                        values[ColumnsCount] = orderStatus;
+                        values[reader.FieldCount - 1] = orderStatus;
                     }
                     else if (values[3].ToString() == string.Empty)
                     {
                         orderStatus = (OrderStatus)0;
-                        values[ColumnsCount] = orderStatus;
+                        values[reader.FieldCount - 1] = orderStatus;
                     }
                     else
                     {
                         orderStatus = (OrderStatus)2;
-                        values[ColumnsCount] = orderStatus;
+                        values[reader.FieldCount - 1] = orderStatus;
                     }
 
                     orders.Add(values);
@@ -50,38 +113,33 @@
             return orders;
         }
 
-
-        public object[] GetOrderInfo(int orderID)
+        public List<object> GetOrderInfo(int orderID)
         {
-            using (IDbConnection connection = new SqlConnection(this.connectionString))
+            using (var connection = this.CreateConnection())
             {
-                const int ColumnsCount = 10;
                 var command = connection.CreateCommand();
-                command.CommandText = $@"select
-                                         OD.*,ProductName//todo pn я говорил, что * не используем, а перечисляем поля руками
-                                         from Northwind.[Order Details] as OD 
-                                         inner join Northwind.Products as prod 
-                                         on OD.ProductID = prod.ProductID  
-                                         where OrderID = {orderID}; ";
+                command.CommandText = string.Format(GetOrderInfoDBCommand,orderID);
 
                 connection.Open();
                 IDataReader reader = command.ExecuteReader();
-                var values = new object[ColumnsCount];
+                var orders = new List<object>();
 
                 while (reader.Read())
                 {
+                    var values = new object[reader.FieldCount];
                     reader.GetValues(values);
+                    orders.Add(values);
                 }
-                return values;
+                return orders;
             }
         }
 
-        public void CreateNewOrder(
+        public object[] CreateNewOrder(
                                    string custmerID,
                                    int employeeID,
-                                   string orderDate,
-                                   string requiueredDate,
-                                   string shippedDate,
+                                   DateTime orderDate,
+                                   DateTime requiueredDate,
+                                   DateTime shippedDate,
                                    int shipVia,
                                    double freight,
                                    string shipName,
@@ -91,95 +149,189 @@
                                    int shipPostalCode,
                                    string shipCountry)
         {
-            using (IDbConnection connection = new SqlConnection(this.connectionString))
+            using (var connection = this.CreateConnection())
             {
                 var command = connection.CreateCommand();
-                command.CommandText = $"insert into Northwind.Orders values ('{custmerID}', {employeeID},{orderDate}, {requiueredDate}," +
-                                                                            $" {shippedDate}, {shipVia}, {freight}, '{shipName}', '{shipAdress}'," +
-                                                                               $"'{shipCity}', '{shipRegion}', {shipPostalCode}, '{shipCountry}');";
+                command.Parameters.Add(
+                        new SqlParameter()
+                    {
+                        ParameterName = "@OrderDate",
+                        DbType = DbType.DateTime,
+                        Direction = ParameterDirection.Input,
+                        Value = orderDate.ToString("o")
+                    });
+                command.Parameters.Add(
+                        new SqlParameter()
+                        {
+                            ParameterName = "@RequiueredDate",
+                            DbType = DbType.DateTime,
+                            Direction = ParameterDirection.Input,
+                            Value = requiueredDate.ToString("o")
+                        });
+                command.Parameters.Add(
+                        new SqlParameter()
+                        {
+                            ParameterName = "@ShippedDate",
+                            DbType = DbType.DateTime,
+                            Direction = ParameterDirection.Input,
+                            Value = requiueredDate.ToString("o")
+                        });
+                command.Parameters.Add(
+                        new SqlParameter()
+                        {
+                            ParameterName = "@Freight",
+                            DbType = DbType.Double,
+                            Direction = ParameterDirection.Input,
+                            Value = freight
+                        });
+                command.CommandText = string.Format(CreateNewOrderDBInsertCommand,custmerID,employeeID,shipVia,shipName,shipAdress,shipCity,shipRegion,shipPostalCode,shipCountry);
 
                 connection.Open();
                 command.ExecuteNonQuery();
-            }
-        }
 
-        public void ChangeOrderStatus(int orderID, DateTime newDate)
-        {
-            const int ColumnsCount = 2;
-            using (IDbConnection connection = new SqlConnection(this.connectionString))
-            {
-                var command = connection.CreateCommand();
-                command.CommandText = $"SELECT OrderDate,ShippedDate FROM Northwind.Orders where OrderID = {orderID}";
-
-                connection.Open();
+                command.CommandText = CreateNewOrderDBSelectCommand;
                 IDataReader reader = command.ExecuteReader();
-                var values = new object[ColumnsCount];
-
+                var values = new object[reader.FieldCount];
                 while (reader.Read())
                 {
                     reader.GetValues(values);
-
-                    if (values[0].ToString() == string.Empty)
-                    {
-                        command = connection.CreateCommand();
-                        command.CommandText = $"update Northwind.Orders set OrderDate = ({newDate.ToString("o")}) where OrderID = {orderID};";//todo pn я говорил использовать параметры, а не вставлять в строку значения
-						connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    else if (values[1].ToString() == string.Empty)
-                    {
-                        command = connection.CreateCommand();
-                        command.CommandText = $"update Northwind.Orders set ShippedDate = ({newDate.ToString("o")}) where OrderID = {orderID};";
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
                 }
+                return values;
             }
         }
 
 
-        public object[] CallCustOrderHist(string custmerID)
+        public bool SetOrderComplete(int orderID, DateTime newDate)
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = this.CreateConnection())
             {
-                const int ColumnsCount = 2;
+                var command = connection.CreateCommand();
+                command.Parameters.Add(
+                    new SqlParameter()
+                    {
+                        ParameterName = "@OrderID",
+                        DbType = DbType.Int32,
+                        Direction = ParameterDirection.Input,
+                        Value = orderID
+                    });
+
+                command.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@Date",
+                    DbType = DbType.DateTime,
+                    Direction = ParameterDirection.Input,
+                    Value = newDate.ToString("o")
+                });
+                command.CommandText = SetOrderCompleteDBSelectCommand;
+
+                connection.Open();
+                var dbDate = command.ExecuteScalar();
+
+                if (dbDate is DBNull)
+                {
+                    command.CommandText = SetOrderCompleteDBUpdateCommand;
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool SetOrderInWork(int orderID, DateTime newDate)
+        {
+            using (var connection = this.CreateConnection())
+            {
+                var command = connection.CreateCommand();
+                command.Parameters.Add(
+                    new SqlParameter()
+                    {
+                        ParameterName = "@OrderID",
+                        DbType = DbType.Int32,
+                        Direction = ParameterDirection.Input,
+                        Value = orderID
+                    });
+
+                command.Parameters.Add(
+                    new SqlParameter()
+                    {
+                        ParameterName = "@Date",
+                        DbType = DbType.DateTime,
+                        Direction = ParameterDirection.Input,
+                        Value = newDate.ToString("o")
+                    });
+                command.CommandText = SetOrderInWorkDBSelectCommand;
+
+                connection.Open();
+                var dbDate = command.ExecuteScalar();
+
+                if (dbDate is DBNull)
+                {
+                    command.CommandText = SetOrderInWorkDBUpdateCommand;
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public List<object> CallCustOrderHist(string customerID)
+        {
+            using (var connection = this.CreateConnection())
+            {
                 connection.Open();
 
                 var command = connection.CreateCommand();
                 command.CommandText = "[Northwind].[CustOrderHist]";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@CustomerID", custmerID);
-
+                command.Parameters.Add(
+                    new SqlParameter()
+                    {
+                        ParameterName = "@CustomerID",
+                        DbType = DbType.String,
+                        Direction = ParameterDirection.Input,
+                        Value = customerID
+                    });
+                
                 IDataReader reader = command.ExecuteReader();
-                var values = new object[ColumnsCount];
+                var custHist = new List<object>();
                 while (reader.Read())
                 {
+                    var values = new object[reader.FieldCount];
                     reader.GetValues(values);
+                    custHist.Add(values);
                 }
-                return values;
+                return custHist;
             }
         }
 
-
-        public object[] CallCustOrderDetail(int orderID)
+        public List<object> CallCustOrderDetail(int orderID)
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = this.CreateConnection())
             {
-                const int ColumnsCount = 2;
                 connection.Open();
 
                 var command = connection.CreateCommand();
                 command.CommandText = "[Northwind].[CustOrdersDetail]";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@OrderID", orderID);
-
+                command.Parameters.Add(
+                    new SqlParameter()
+                    {
+                        ParameterName = "@OrderID",
+                        DbType = DbType.Int32,
+                        Direction = ParameterDirection.Input,
+                        Value = orderID
+                    });
                 IDataReader reader = command.ExecuteReader();
-                var values = new object[ColumnsCount];
+                var orderDetail = new List<object>();
+                
                 while (reader.Read())
                 {
+                    var values = new object[reader.FieldCount];
                     reader.GetValues(values);
+                    orderDetail.Add(values);
                 }
-                return values;
+                return orderDetail;
             }
         }
     }

@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Page</title>
+<link rel="stylesheet" type="text/css" href="Task1,2,3.css">
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="Task1,2,3.js"></script>
+</head>
+<body>
+    <div class="container"></div>
+    <h1>Basics of JavaScript</h1>
+    <h2>Task 1</h2>
+    <p>
+        <span>
+            Написать функцию, на вход которой приходит строка, состоящая из нескольких слов. Слова разделены пробельными символами (пробел, табуляция) и знаками препинания (?!:;,.). Нужно вернуть строку, в которой будут удалены все символы, повторяющиеся хоть в одном из слов более одного раза.
+            Регулярные выражения не использовать.
+        </span>
+    </p>
+    <h3>Решение</h3>
+    <label for="calc">Введите пример: </label>
+    <input id="calc" value="У попа была собака" style="width: 500px;">
+    <button type="submit" onclick="calc()">Вычислить</button>
+    <br>
+    <label>Результат:</label>
+    <span id="result1"></span>
+
+    <h2>Task 2</h2>
+    <p>
+        <span>
+            Написать функцию для подсчёта результата выражения. На вход приходит строка с арифметическим выражением.
+            Внутри выражения записываются вещественные числа (в качестве разделителя целой и дробной части используется точка),
+            разделённые математическими операторами (+-*/). Между числом и оператором может стоять пробел.
+            В конце строки стоит знак «равно».
+        </span>
+    </p>
+    <h3>Решение</h3>
+    <label for="operation">Введите пример: </label>
+    <input id="operation" value="12+34*76=" style="width: 500px;">
+    <button type="submit" onclick="operation()">Вычислить</button>
+    <br>
+    <label>Результат:</label>
+    <span id="result2"></span>
+
+    <h2>Task3</h2>
+    <form>
+        <div class="col-sm-3 col-md-5">
+            <select name="possible" class="possible" multiple>
+                <option value="one">One</option>
+                <option value="two">Two</option>
+            </select>
+        </div>
+        <div class="col-sm-1 col-md-2">
+            <p><input class="button" type="button" value=">>" onclick="MoveAllItem()"></p>
+            <p><input class="button" type="button" value=">"  onclick="MyMoveItem()"></p>
+            <p><input class="button" type="button" value="<"  onclick="RemoveItem()"></p>
+            <p><input class="button" type="button" value="<<" onclick="RemoveAllItem()"></p>
+        </div>
+        <div class="col-sm-3 col-md-offset-0 col-md-5">
+            <select name="wishlist" class="wishlist" multiple>
+                <option value="three">Three</option>
+                <option value="four">Four</option>
+            </select>
+        </div>
+    </form>
+</body>
+</html>

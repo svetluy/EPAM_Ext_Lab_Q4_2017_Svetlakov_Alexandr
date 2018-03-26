@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DynamicArray<T> : IEnumerable<T>//todo pn круто, а тесты на все методы?) лучше отдельным классом
+    public class DynamicArray<T> : IEnumerable<T> // todo pn круто, а тесты на все методы?) лучше отдельным классом
     {
         private const int N = 8;
         private const int Multiplier = 2;
@@ -30,7 +30,7 @@
             this.Length = enumerable.Count();
         }
 
-        public int Capacity => this.arr.Length;
+        public int Capacity { get; private set; }
 
         public int Length { get; private set; }
 
@@ -52,68 +52,64 @@
 
         public void Add(T item)
         {
-            if (this.Length < this.Capacity)
+            if (this.Length + 1 < this.Capacity)
             {
-                this.Length++;
                 this.arr[this.Length] = item;
+                this.Length++;
             }
             else
             {
-                this.arr = Generate<T>(this.Capacity * Multiplier);
+                var tmp = this.Length;
+                this.NextSize(this);
+                this.arr[tmp] = item;
                 this.Length++;
-                this.arr[this.Length] = item;
             }
         }
 
         public void AddRange(IEnumerable<T> collection)
         {
             var enumerable = collection as T[] ?? collection.ToArray();
-            if (this.Capacity < this.Length + enumerable.Length)
+            if (this.Capacity > this.Length + enumerable.Count())
             {
                 enumerable.CopyTo(this.arr, this.Length);
-                this.Length += enumerable.Length;
+                this.Length += enumerable.Count();
             }
             else
             {
-                var tmpArr = new T[this.Length];
+                var tmpArr = new T[this.Capacity];
+                var tmp = this.Length;
                 this.arr.CopyTo(tmpArr, 0);
-                this.arr = Generate<T>(enumerable.Length + this.Length);
+                this.arr = Generate<T>(enumerable.Count() + this.Length + N);
                 tmpArr.CopyTo(this.arr, 0);
-                enumerable.CopyTo(this.arr, this.Length);
-                this.Length = tmpArr.Length + enumerable.Length;
+                enumerable.CopyTo(this.arr, tmp);
+                this.Length = this.arr.Length;
             }
         }
 
-        public void Insert(int index, T item)
+        public bool Insert(int index, T item)
         {
-            if (index < this.Length && index > 0)
+            if (index <= this.Length && index >= 0)
             {
-                var b = new T[this.Length + 1];
-                Array.Copy(this.arr, 0, b, 0, index - 1);
-                b[index] = item;
-                Array.Copy(this.arr, index, b, index + 1, this.Length - index - 1);
-                if (this.Length < this.Capacity)
+                if (this.Length + 1 > this.Capacity)
                 {
-                    this.arr = Generate<T>(this.Capacity);
-                    b.CopyTo(this.arr, 0);
-                    this.Length = b.Length;
+                    this.NextSize(this);
                 }
-                else
-                {
-                    this.arr = Generate<T>(this.Capacity * Multiplier);
-                    b.CopyTo(this.arr, 0);
-                    this.Length = b.Length;
-                }
+
+                this.ShiftArr(index);
+                this.arr[index] = item;
+                return true;
             }
             else
             {
+                return false;
                 throw new ArgumentOutOfRangeException();
             }
         }
 
         public bool Remove(T item)
         {
-            if (!this.arr.Contains(item))
+            int index = this.FindIndex(this.arr, item);
+            if (!this.arr.Contains(item) || (index >= this.Length))
             {
                 return false;
             }
@@ -142,7 +138,34 @@
         {
             A[] arr = new A[n];
             this.Length = 0;
+            this.Capacity = n;
             return arr;
+        }
+
+        private int FindIndex(T[] arr, T item)
+        {
+            int index = -1;
+            arr.First(n => { index++; return n.Equals(item); });
+            return index;
+        }
+
+        private void ShiftArr(int index)
+        {
+            for (int i = this.Length; i > index; i--)
+            {
+                this.arr[i] = this.arr[i - 1];
+            }
+
+            this.Length += 1;
+        }
+
+        private void NextSize(DynamicArray<T> sourceArray)
+        {
+            var tmpArr = new T[sourceArray.Capacity];
+            Array.Copy(sourceArray.arr, tmpArr, sourceArray.arr.Length);
+            sourceArray.arr = Generate<T>(sourceArray.Capacity * Multiplier);
+            Array.Copy(tmpArr, sourceArray.arr, tmpArr.Length);
+            sourceArray.Length = tmpArr.Length - 1;
         }
     }
 }

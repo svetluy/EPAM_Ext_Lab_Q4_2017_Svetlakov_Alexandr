@@ -4,7 +4,7 @@
 
     public class TextAnalyzer
     {
-        private readonly char[] separators = { ' ', '.' };//todo pn придираюсь: можно было подумать, как пользователи твоей библиотеки будут пропихивать свои разделители в твою логику.
+        private readonly char[] separators = { ' ', '.' }; // todo pn придираюсь: можно было подумать, как пользователи твоей библиотеки будут пропихивать свои разделители в твою логику.
         private string text;
         private string[] words;
 

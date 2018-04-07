@@ -1,0 +1,53 @@
+﻿@model HMW_13.Models.OrderDetailsViewModel
+
+<div>
+    <h4>Detail info about order @ViewBag.OrderId</h4>
+    <table class="table">
+        <tr>
+            <th>OrderId</th>
+            <th>Customer</th>
+            <th>OrderStatus</th>
+            <th>OrderDate</th>
+            <th>OrderSum</th>
+            <th>ProductId</th>
+            <th>UnitPrice</th>
+            <th>Quantity</th>
+            <th>Discount</th>
+            <th>ProductName</th>
+        </tr>
+        <tr>
+            <td>@ViewBag.OrderId</td>
+            <td>@ViewBag.Custmer</td>
+            <td>@ViewBag.OrderStatus</td>
+            <td>@ViewBag.OrderDate</td>
+            <td>@ViewBag.OrderSum</td>
+            <td>@ViewBag.ProductsList[0].ProductId</td>
+            <td>@ViewBag.ProductsList[0].UnitPrice</td>
+            <td>@ViewBag.ProductsList[0].Quantity</td>
+            <td>@ViewBag.ProductsList[0].Discount</td>
+            <td>@ViewBag.ProductsList[0].ProductName</td>
+        </tr>
+        @for (int i = 1; i < ViewBag.ProductsList.Count; i++)
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@ViewBag.ProductsList[i].ProductId</td>
+                <td>@ViewBag.ProductsList[i].UnitPrice</td>
+                <td>@ViewBag.ProductsList[i].Quantity</td>
+                <td>@ViewBag.ProductsList[i].Discount</td>
+                <td>@ViewBag.ProductsList[i].ProductName</td>
+            </tr>
+        }
+    </table>
+    <hr />
+</div>
+<form action="AddOrderDetails">
+    @Html.ActionLink("Back to List", "Orders")
+
+    <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
+    <input class="btn" type="submit" value="Add order details" />
+</form>

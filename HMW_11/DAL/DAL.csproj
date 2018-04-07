@@ -43,10 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainModels\Order.cs" />
+    <Compile Include="DomainModels\OrderDetails.cs" />
+    <Compile Include="DomainModels\Product.cs" />
     <Compile Include="OrdersManagment.cs" />
-    <Compile Include="OrderStatus.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DomainModels\Enums\OrderStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

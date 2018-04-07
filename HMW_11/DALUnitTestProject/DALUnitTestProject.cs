@@ -13,20 +13,9 @@ namespace DALUnitTestProject
         public void TestGetOrders()
         {
             var result = dal.GetOrders();
-            foreach (object[] item in result)
+            foreach (var order in result)
             {
-                foreach (var value in item)
-                {
-                    if (value.ToString() == string.Empty)
-                    {
-                        Console.WriteLine("Not set");
-                    }
-                    else
-                    {
-                        Console.WriteLine(value);
-                    }
-                }
-                Console.WriteLine();
+                Console.WriteLine(order);
             }
         }
 
@@ -35,20 +24,9 @@ namespace DALUnitTestProject
         public void TestGetOrderInfo(int value)
         {
             var result = dal.GetOrderInfo(value);
-            foreach (object[] item in result)
+            foreach (var order in result)
             {
-                foreach (var prop in item)
-                {
-                    if (value.ToString() == string.Empty)
-                    {
-                        Console.WriteLine("Not set");
-                    }
-                    else
-                    {
-                        Console.WriteLine(prop);
-                    }
-                }
-                Console.WriteLine();
+                Console.WriteLine(order);
             }
         }
 
@@ -133,11 +111,11 @@ namespace DALUnitTestProject
                                    int shipPostalCode,
                                    string shipCountry)
         {
-            var result = dal.CreateNewOrder(custmerID,employeeID, DateTime.Parse(orderDate), DateTime.Parse(requiueredDate), DateTime.Parse(shippedDate),shipVia,freight,shipName,shipAdress,shipCity,shipRegion,shipPostalCode,shipCountry);
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
+            //var result = dal.CreateNewOrder(custmerID,employeeID, DateTime.Parse(orderDate), DateTime.Parse(requiueredDate), DateTime.Parse(shippedDate),shipVia,freight,shipName,shipAdress,shipCity,shipRegion,shipPostalCode,shipCountry);
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item);
+            //}
         }
     }
 }

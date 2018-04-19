@@ -1,0 +1,22 @@
+﻿@model KnowledgeTestingApplication.Models.IndexViewModel
+@using KnowledgeTestingApplication.Helpers
+@{
+    ViewBag.Title = "Home Page";
+}
+<table class="table">
+    <tr>
+        <td>TestId</td>
+        <td>Test</td>
+    </tr>
+    @foreach (var item in Model.Tests)
+    {
+        <tr>
+            <td>@item.TestId</td>
+            <td>@Html.ActionLink(item.TestName, "PreStartTest", new { testid = item.TestId })</td>
+        </tr>
+    }
+</table>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+</div>

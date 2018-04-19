@@ -1,0 +1,63 @@
+﻿@model KnowledgeTestingApplication.Models.StartTestQuestionViewModel
+@using KnowledgeTestingApplication.Helpers
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm("CheckAnswer", "Test", new { testid = Model.QuestionPageInfo.TestId, questionId = Model.QuestionPageInfo.QuestionId }))
+{
+    <p><b>@Model.Question.QuestionText</b></p>
+    if (Model.Question.Checkboxed)
+    {
+        foreach (var item in Model.Question.AnswerOptions)
+        {
+            if (Model.Question.UserChoice.Contains(item.Value))
+            {
+                <p><input name=@Model.QuestionPageInfo.QuestionId type="checkbox" value='@item.Value' checked> @item.Value</p>
+            }
+            else
+            {
+                <p><input name=@Model.QuestionPageInfo.QuestionId type="checkbox" value='@item.Value'> @item.Value</p>
+            }
+        }
+    }
+    else
+    {
+        if (Model.Question.AnswerOptions.Count != 0)
+        {
+
+            foreach (var item in Model.Question.AnswerOptions)
+            {
+                if (Model.Question.UserChoice.Contains(item.Value))
+                {
+                    <p><input name=@Model.QuestionPageInfo.QuestionId type="radio" value='@item.Value' checked> @item.Value</p>
+                }
+                else
+                {
+                    <p><input name=@Model.QuestionPageInfo.QuestionId type="radio" value='@item.Value'> @item.Value</p>
+                }
+            }
+        }
+        else
+        {
+            <p><input name=@Model.QuestionPageInfo.QuestionId type="text" value=""></p>@*@Model.Question.UserChoice[0]*@
+        }
+    }
+
+    foreach (var item in Model.Question.RightAnswer)
+    {
+        <input name="rightansw" type="hidden" value="@item">
+    }
+
+    <p><input class="btn btn-primary" type="submit" value="Выбрать"></p>
+}
+<div>
+    <button class=" btn btn-success">@Html.ActionLink("Завершить тест", "TestResult", new { testId = Model.QuestionPageInfo.TestId })</button>
+
+</div>
+
+<br />
+<div class="btn-group">
+    @Html.QuestionHelper(Model.QuestionPageInfo, x => Url.Action("StartTest", new { testid = Model.QuestionPageInfo.TestId, questionId = x }))
+</div>
+

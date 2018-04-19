@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeTestingApplication", "KnowledgeTestingApplication\KnowledgeTestingApplication.csproj", "{E2436CEA-9F10-4F73-9BCB-3AB051C15203}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcess", "DataAcess\DataAcess.csproj", "{5270EE8D-DE8C-4FB0-98C8-6384CF1327E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2436CEA-9F10-4F73-9BCB-3AB051C15203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2436CEA-9F10-4F73-9BCB-3AB051C15203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2436CEA-9F10-4F73-9BCB-3AB051C15203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2436CEA-9F10-4F73-9BCB-3AB051C15203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5270EE8D-DE8C-4FB0-98C8-6384CF1327E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5270EE8D-DE8C-4FB0-98C8-6384CF1327E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5270EE8D-DE8C-4FB0-98C8-6384CF1327E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5270EE8D-DE8C-4FB0-98C8-6384CF1327E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45735D87-7AC4-45DF-8689-4915D75A256B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,59 @@
+﻿@model KnowledgeTestingApplication.Models.TestResultViewModel
+@{
+    ViewBag.Title = "TestResult";
+}
+<h2>TestResult</h2>
+
+<div>
+    <table class="table">
+
+        <tr>
+            <th>Test Name</th>
+            <th>Total Questions</th>
+            <th>User Answered</th>
+            <th>User Right Answered</th>
+            <th>User Score</th>
+        </tr> 
+        <tr>
+            <td>@Model.TestName</td>
+            <td>@Model.TotalQuestions</td>
+            <td>@Model.UserAnswered</td>
+            <td>@Model.UserRightAnswered</td>
+            <td>@Model.UserScore</td>
+        </tr>
+    </table>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Question</th>
+        <th>Your Answer</th>
+        <th>Right Answer</th>
+    </tr>
+    @foreach (var item in Model.QuestionInfo)
+    {
+        if (item.UserAnswer.Count != 0)
+        {
+            <tr>
+                <td>@item.QuestionId</td>
+                <td>
+                    @foreach (var userAnsw in item.UserAnswer)
+                    {
+                        <p>@userAnsw</p>
+                    }
+                </td>
+                <td>
+                    @foreach (var rightAnsw in item.RightAnswer)
+                    {
+                        <p>@rightAnsw</p>
+                    }
+
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+
+
+

@@ -9,7 +9,7 @@ namespace KnowledgeTestingApplication.Models
     public class LoginModel
     {
         [Required]
-        public string Name { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -19,6 +19,9 @@ namespace KnowledgeTestingApplication.Models
     public class RegisterModel
     {
         [Required]
+        public string Email { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -27,7 +30,7 @@ namespace KnowledgeTestingApplication.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Password not confirmed")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
 
     }

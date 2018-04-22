@@ -18,13 +18,15 @@ namespace DataAcess
         private static readonly string GetRightAnswersDbCommand = "select RightAnswers from dbo.Questions where questionId = {0} and testId = {1}";
         private static readonly string GetQuestionTextDbCommand = "select QuestionText from dbo.Questions where questionId = {0} and testId = {1}";
         private static readonly string GetQuestionListDbCommand = "select distinct QuestionID from dbo.Questions where testid = {0}";
-        private static readonly string GetTestNameDbCommand = "select testname from dbo.Test where testid = {0}";
+        private static readonly string GetTestDbCommand = "select testname, testtime from dbo.Test where testid = {0}";
         private static readonly string GetTestsForPageDbCommand = "select top({1}) testid from dbo.Test where testid not in (select top(({0}-1)*{1}) testid from dbo.Test)";
         private static readonly string IsCheckboxedDbCommand = "select Checkboxed from dbo.Questions where questionId = {0} and testId = {1}";
         private static readonly string SetUserChoiceDbCommand = "update [TestingAppDB].[dbo].[Questions]  SET [UserChoice] = '{0}' where TestID = {1} and QuestionID = {2} and AnswerOptionID = {3}";
         private static readonly string ClearUserChoiceDBCommand = "update [TestingAppDB].[dbo].[Questions]  SET [UserChoice] = null where TestID = {0}";
-        private static readonly string GetUserDbCommand = "select [ID],[Email],[Password] from [TestingAppDB].[dbo].[User] where Email = {0}";
+        private static readonly string GetUserDbCommand = "select [ID],[Email],[Password],[Name] from [TestingAppDB].[dbo].[User] where Email = '{0}'";
         private static readonly string GetUserRolesDbCommand = "select [RoleID] from [TestingAppDB].[dbo].[UserRole] where UserID = {0}";
+        private static readonly string CreateUserDbCommand = "insert into [TestingAppDB].[dbo].[User]([Email],[Password],[Name]) values ('{0}','{1}','{2}')";
+        private static readonly string SetUserRoleDbCommand = "insert into [TestingAppDB].[dbo].[UserRole]([UserID],[RoleID]) values ({0},{1})";
 
         private static DbConnection CreateConnection()
         {
@@ -170,22 +172,30 @@ namespace DataAcess
             }
             return questionList;
         }
-        public static string GetTestName(int testId)
+        public static Test GetTest(int testId)
         {
             using (var connection = CreateConnection())
             {
                 var command = connection.CreateCommand();
-                command.CommandText = string.Format(GetTestNameDbCommand, testId);
+                command.CommandText = string.Format(GetTestDbCommand, testId);
                 connection.Open();
                 IDataReader reader = command.ExecuteReader();
+                int? testTime = null;
                 string testName = string.Empty;
                 while (reader.Read())
                 {
                     var values = new object[reader.FieldCount];
                     reader.GetValues(values);
                     testName = Convert.ToString(values[0]);
+                    testTime = values[1] as int?;
                 }
-                return testName;
+                var test = new Test
+                {
+                    TestName = testName,
+                    TestId = testId,
+                    TestTime = testTime
+                };
+                return test;
             }
         }
         public static bool SetUserChoice(int testId, int questionId, string[] userChoice)
@@ -227,22 +237,52 @@ namespace DataAcess
                 command.CommandText = string.Format(GetUserDbCommand, login);
                 connection.Open();
                 IDataReader reader = command.ExecuteReader();
+                //if (reader.IsDBNull(1))     
+                //{
+                //    return null;
+                //}
                 while (reader.Read())
                 {
                     var values = new object[reader.FieldCount];
                     reader.GetValues(values);
-                    if (Convert.ToString(values[0]) == string.Empty)
-                    {
-                        return null;
-                    }
                     user.Id = int.Parse(Convert.ToString(values[0]));
                     user.Email = Convert.ToString(values[1]);
                     user.Password = Convert.ToString(values[2]);
+                    user.Name = Convert.ToString(values[3]);
                 }
             }
             user.Role = GetUserRoles(user.Id);
             return user;
         }
+        public static bool CreateUser(User user)
+        {
+            int userId;
+            using (var connection = CreateConnection())
+            {
+                var command = connection.CreateCommand();
+                connection.Open();
+
+                command.CommandText = string.Format(CreateUserDbCommand, user.Email, user.Password, user.Name);
+                command.ExecuteNonQuery();
+                command.CommandText = string.Format("select [ID] from [TestingAppDB].[dbo].[User] where Email = '{0}'", user.Email);
+                userId = Convert.ToInt32(command.ExecuteScalar());
+            }
+            SetUserRole(userId, Role.User);
+            return true;
+        }
+
+        private static void SetUserRole(int userId, Role role)
+        {
+            using (var connection = CreateConnection())
+            {
+                var command = connection.CreateCommand();
+                connection.Open();
+
+                command.CommandText = string.Format(SetUserRoleDbCommand, userId, (int)role);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public static List<Role> GetUserRoles(int userId)
         {
             var roles = new List<Role>();
@@ -260,16 +300,6 @@ namespace DataAcess
                 }
             }
             return roles;
-        }
-
-        public static Test GetTest(int testId)
-        {
-            var test = new Test
-            {
-                TestName = GetTestName(testId),
-                TestId = testId
-            };
-            return test;
         }
         public static List<Test> GetTestsForPage(int pageNum = 1, int testsOnPage = 4)
         {

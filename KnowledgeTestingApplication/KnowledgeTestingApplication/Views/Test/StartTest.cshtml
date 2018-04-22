@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Home Page";
 }
+@{
+    var url = Url.Action("Завершить тест", "TestResult", new { testId = Model.QuestionPageInfo.TestId });
+    
+}
+<script src="~/Scripts/Timer.js"></script>
+<div id="tick"></div>
 
 @using (Html.BeginForm("CheckAnswer", "Test", new { testid = Model.QuestionPageInfo.TestId, questionId = Model.QuestionPageInfo.QuestionId }))
 {
@@ -40,7 +46,7 @@
         }
         else
         {
-            <p><input name=@Model.QuestionPageInfo.QuestionId type="text" value=""></p>@*@Model.Question.UserChoice[0]*@
+            <p><input name=@Model.QuestionPageInfo.QuestionId type="text" value=""></p>
         }
     }
 

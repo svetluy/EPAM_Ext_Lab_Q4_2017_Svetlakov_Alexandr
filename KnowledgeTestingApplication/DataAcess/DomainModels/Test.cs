@@ -10,5 +10,6 @@ namespace DataAcess.DomainModels
     {
         public int TestId { get; set; }
         public string TestName { get; set; }
+        public int? TestTime { get; set; }
     }
 }

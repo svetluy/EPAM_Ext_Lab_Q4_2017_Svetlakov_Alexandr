@@ -1,47 +1,21 @@
 ﻿var ticks;
-var page;
-var timeout = setTimeout(letsGo, 10);
-var counter = 0;
+var timeout = setTimeout(letsGo, 1000);
 
-function startTimer(nextPage) {
-    ticks = 3 * 100;
-    page = nextPage;
+function startTimer(minutes) {
+    ticks = +minutes * 60;
     timeout();
 }
 
 function letsGo() {
+
     if (ticks < 1) {
-        if (typeof page == "undefined") {
-            if (confirm("Начать сначала?")) {
-                page = 'TestPage1.html'
-            }
-            else {
-                return;
-            }
-        }
-        location.assign(page);
         return;
     }
 
-    document.getElementById("tick").innerHTML = ticks / 100;
-    timeout = setTimeout(letsGo, 10);
+    console.log((ticks/60).toString().substr(0,2) +" " + (ticks%60).toString().substr(0,2));
+    //document.getElementById("tick").innerHTML = ticks / 100;
+    timeout = setTimeout(letsGo, 1000);
     ticks--;
 }
 
-function onPause() {
-    counter++;
-    if (counter%2 == 1) {
-        clearTimeout(timeout); 
-    }
-    else if (counter % 2 == 0) {
-         timeout = setTimeout(letsGo, 10);
-    }
-}
-
-function nextPage(page) {
-    location.assign(page);
-}
-
-function previusPage() {
-    history.back();
-}
+startTimer(20);

@@ -22,12 +22,17 @@ namespace KnowledgeTestingApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<DataAcess.DomainModels.User, User>());
-                var mapper = config.CreateMapper();
-                var user = mapper.Map<User>(DataAcess.TestManagment.GetUser(model.Name));
-                if (user != null)
+                var user = DataAcess.TestManagment.GetUser(model.Email);
+                if ( user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                    foreach (var role in user.Role)
+                    {
+                        if (role == DataAcess.DomainModels.Role.Admin)      
+                        {
+                            //Roles.
+                        }
+                    }
                     return RedirectToAction("Index", "Test");
                 }
                 else
@@ -43,23 +48,25 @@ namespace KnowledgeTestingApplication.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<DataAcess.DomainModels.User, User>());
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<RegisterModel, DataAcess.DomainModels.User>());
                 var mapper = config.CreateMapper();
-                var user = mapper.Map<User>(DataAcess.TestManagment.GetUser(model.Name));
+                
 
-                if (user == null)
+                if (DataAcess.TestManagment.GetUser(model.Email) == null)
                 {
-
-                    if (user != null)
+                    var user = mapper.Map<DataAcess.DomainModels.User>(model);
+                    DataAcess.TestManagment.CreateUser(user);
+                    if (DataAcess.TestManagment.GetUser(model.Email) != null)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction("Index", "Home");
+                        FormsAuthentication.SetAuthCookie(model.Email, true);
+                        return RedirectToAction("Index", "Test");
                     }
                 }
                 else
@@ -70,10 +77,11 @@ namespace KnowledgeTestingApplication.Controllers
 
             return View(model);
         }
+
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

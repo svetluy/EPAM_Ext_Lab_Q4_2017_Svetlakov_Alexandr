@@ -11,9 +11,10 @@ namespace KnowledgeTestingApplication.Controllers
     public class TestController : Controller
     {
         // GET: Test
+        [Authorize]
         public ActionResult Index(int page = 1)
         {
-            
+            ViewBag.User = User.Identity.Name;
             int pageSize = 3; // количество объектов на страницу
             var testsPerPages = DataAcess.TestManagment.GetTestsForPage(page, pageSize);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<DataAcess.DomainModels.Test, IndexTestViewModel>());
@@ -29,7 +30,7 @@ namespace KnowledgeTestingApplication.Controllers
             DataAcess.TestManagment.ClearUserChoice(testId);
             return RedirectToAction("StartTest", new {testId});
         }
-
+        [Authorize]
         public ActionResult StartTest(int testId, int questionId = 1)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<DataAcess.DomainModels.Question, QuestionViewModel>());
@@ -59,14 +60,14 @@ namespace KnowledgeTestingApplication.Controllers
                 return RedirectToAction("TestResult", new { testId });
             }
         }
-
+        [Authorize]
         public ActionResult TestResult(int testId)
         {
             var questions = DataAcess.TestManagment.GetQuestionList(testId);
             TestResultViewModel testResult = new TestResultViewModel
             {
                 TestId = testId,
-                TestName = DataAcess.TestManagment.GetTestName(testId),
+                TestName = DataAcess.TestManagment.GetTest(testId).TestName,
                 TotalQuestions = questions.Count
             };
             

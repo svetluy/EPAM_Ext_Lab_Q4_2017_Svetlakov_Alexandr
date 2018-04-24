@@ -3,14 +3,15 @@
 CREATE TABLE [dbo].[Test] (
     [TestID]   INT            IDENTITY (1, 1) NOT NULL,
     [TestName] NVARCHAR (200) NOT NULL,
+    [TestTime] INT            NULL,
     PRIMARY KEY CLUSTERED ([TestID] ASC)
 );
 
-INSERT [TestingAppDB].[dbo].[Test] ([TestName]) VALUES ('«Базы данных»')
-INSERT [TestingAppDB].[dbo].[Test] ([TestName]) VALUES ('«Информационные технологии»')
-INSERT [TestingAppDB].[dbo].[Test] ([TestName]) VALUES ('«Организация ЭВМ и систем»')
-INSERT [TestingAppDB].[dbo].[Test] ([TestName]) VALUES ('«Защита информации»')
-INSERT [TestingAppDB].[dbo].[Test] ([TestName]) VALUES ('«Информатика»')
+INSERT [TestingAppDB].[dbo].[Test] ([TestName],[TestTime]) VALUES ('«Базы данных»', 20)
+INSERT [TestingAppDB].[dbo].[Test] ([TestName],[TestTime]) VALUES ('«Информационные технологии»', null)
+INSERT [TestingAppDB].[dbo].[Test] ([TestName],[TestTime]) VALUES ('«Организация ЭВМ и систем»', null)
+INSERT [TestingAppDB].[dbo].[Test] ([TestName],[TestTime]) VALUES ('«Защита информации»', null)
+INSERT [TestingAppDB].[dbo].[Test] ([TestName],[TestTime]) VALUES ('«Информатика»', null) 
 
 CREATE TABLE [dbo].[Questions] (
     [TestID]         INT            NOT NULL,
@@ -94,8 +95,8 @@ INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[AnswerOptionID],
 INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[AnswerOptionID],[AnswerOptions]) VALUES (1,8,3,'text')
 INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[AnswerOptionID],[AnswerOptions]) VALUES (1,8,4,'nvarchar')
 INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[AnswerOptionID],[AnswerOptions]) VALUES (1,8,4,'ntext')
-INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[QuestionText],[AnswerOptionID],[AnswerOptions],[RightAnswers],[CheckBoxed]) VALUES (1,9,'Кодд предложил __________________ правил(-а) определения реляционных систем.',1,'12',0)
-INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[QuestionText],[AnswerOptionID],[AnswerOptions],[RightAnswers],[CheckBoxed]) VALUES (1,10,'Все строки в SQL вводятся с использованием команды модификации',1,'INSERT',0)
+INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[QuestionText],[AnswerOptionID],[RightAnswers],[CheckBoxed]) VALUES (1,9,'Кодд предложил __________________ правил(-а) определения реляционных систем.',1,'12',0)
+INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[QuestionText],[AnswerOptionID],[RightAnswers],[CheckBoxed]) VALUES (1,10,'Все строки в SQL вводятся с использованием команды модификации',1,'INSERT',0)
 
 
 INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[QuestionText],[AnswerOptionID],[AnswerOptions],[RightAnswers],[CheckBoxed]) VALUES (2,1,'Если условия ограничений целостности данных выполняются, то происходит:',1,'запрос на изменение данных','фиксация транзакции',0)

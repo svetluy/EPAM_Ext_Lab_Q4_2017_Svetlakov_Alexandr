@@ -155,6 +155,7 @@
     </Compile>
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Models\AuthModels.cs" />
+    <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Models\StartTestQuestionViewModel.cs" />
     <Compile Include="Models\IndexTestViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
@@ -163,7 +164,10 @@
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\TestResultViewModel.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CustomMembershipProvider.cs" />
+    <Compile Include="Providers\CustomRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -188,7 +192,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -207,10 +213,12 @@
     <Content Include="Views\Test\TestResult.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\DeleteUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

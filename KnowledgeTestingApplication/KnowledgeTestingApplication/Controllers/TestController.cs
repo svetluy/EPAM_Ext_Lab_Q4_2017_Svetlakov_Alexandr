@@ -30,6 +30,7 @@ namespace KnowledgeTestingApplication.Controllers
             DataAcess.TestManagment.ClearUserChoice(testId);
             return RedirectToAction("StartTest", new {testId});
         }
+
         [Authorize]
         public ActionResult StartTest(int testId, int questionId = 1)
         {
@@ -60,6 +61,7 @@ namespace KnowledgeTestingApplication.Controllers
                 return RedirectToAction("TestResult", new { testId });
             }
         }
+
         [Authorize]
         public ActionResult TestResult(int testId)
         {
@@ -70,11 +72,11 @@ namespace KnowledgeTestingApplication.Controllers
                 TestName = DataAcess.TestManagment.GetTest(testId).TestName,
                 TotalQuestions = questions.Count
             };
-            
+
 
             foreach (var questionid in questions)
             {
-                var questionResult = new QuestionResultViewModel { QuestionId = questionid};
+                var questionResult = new QuestionResultViewModel { QuestionId = questionid };
                 var question = DataAcess.TestManagment.GetQuestion(testId, questionid);
                 int userRightAnswered = 0;
                 foreach (var option in question.UserChoice)
@@ -90,7 +92,7 @@ namespace KnowledgeTestingApplication.Controllers
                         {
                             questionResult.RightAnswer.Add(answer);
                         }
-                        
+
                         if (option.ToLower().Contains(answer.ToLower()))
                         {
                             userRightAnswered++;
@@ -106,9 +108,14 @@ namespace KnowledgeTestingApplication.Controllers
                 {
                     testResult.UserAnswered++;
                 }
-                testResult.QuestionInfo.Add(questionResult);
+                if (DataAcess.TestManagment.GetUser(User.Identity.Name).Role.Contains(DataAcess.DomainModels.Role.Admin))
+                {
+                    testResult.QuestionInfo.Add(questionResult);
+                }
+
             }
             return View(testResult);
         }
+
     }
 }

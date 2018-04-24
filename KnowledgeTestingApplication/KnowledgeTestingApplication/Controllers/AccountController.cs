@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using KnowledgeTestingApplication.Models;
+using KnowledgeTestingApplication.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -25,15 +27,15 @@ namespace KnowledgeTestingApplication.Controllers
                 var user = DataAcess.TestManagment.GetUser(model.Email);
                 if ( user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, false);
-                    foreach (var role in user.Role)
+                    if (Membership.ValidateUser(model.Email, model.Password))
                     {
-                        if (role == DataAcess.DomainModels.Role.Admin)      
-                        {
-                            //Roles.
-                        }
+                        FormsAuthentication.SetAuthCookie(model.Email, false);
+                        return RedirectToAction("Index", "Test");
                     }
-                    return RedirectToAction("Index", "Test");
+                    else
+                    {
+                        ModelState.AddModelError("", "Не верный пароль");
+                    }
                 }
                 else
                 {
@@ -55,23 +57,16 @@ namespace KnowledgeTestingApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<RegisterModel, DataAcess.DomainModels.User>());
-                var mapper = config.CreateMapper();
-                
+                MembershipUser membershipUser = ((CustomMembershipProvider)Membership.Provider).CreateUser(model.Email, model.Password, model.Name, Role.User);
 
-                if (DataAcess.TestManagment.GetUser(model.Email) == null)
+                if (membershipUser != null)
                 {
-                    var user = mapper.Map<DataAcess.DomainModels.User>(model);
-                    DataAcess.TestManagment.CreateUser(user);
-                    if (DataAcess.TestManagment.GetUser(model.Email) != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(model.Email, true);
-                        return RedirectToAction("Index", "Test");
-                    }
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                    return RedirectToAction("Index", "Test");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователь с таким логином уже существует");
+                    ModelState.AddModelError("", "Ошибка при регистрации");
                 }
             }
 
@@ -83,5 +78,6 @@ namespace KnowledgeTestingApplication.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
+
     }
 }

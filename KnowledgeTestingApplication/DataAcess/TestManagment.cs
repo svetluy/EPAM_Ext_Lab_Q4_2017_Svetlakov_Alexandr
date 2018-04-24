@@ -27,6 +27,8 @@ namespace DataAcess
         private static readonly string GetUserRolesDbCommand = "select [RoleID] from [TestingAppDB].[dbo].[UserRole] where UserID = {0}";
         private static readonly string CreateUserDbCommand = "insert into [TestingAppDB].[dbo].[User]([Email],[Password],[Name]) values ('{0}','{1}','{2}')";
         private static readonly string SetUserRoleDbCommand = "insert into [TestingAppDB].[dbo].[UserRole]([UserID],[RoleID]) values ({0},{1})";
+        private static readonly string GetUsersListDbCommand = "SELECT [Email] FROM[TestingAppDB].[dbo].[User]";
+        private static readonly string DeleteUserDbCommand = "delete FROM [TestingAppDB].[dbo].[User] where ID = {0}";
 
         private static DbConnection CreateConnection()
         {
@@ -228,6 +230,24 @@ namespace DataAcess
                 Checkboxed = IsCheckboxed(questionId, testId)
             };
         }
+        public static List<string> GetUsersList()
+        {
+            var usersList = new List<string>();
+            using (var connection = CreateConnection())
+            {
+                var command = connection.CreateCommand();
+                command.CommandText = GetUsersListDbCommand;
+                connection.Open();
+                IDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var values = new object[reader.FieldCount];
+                    reader.GetValues(values);
+                    usersList.Add(Convert.ToString(values[0]));
+                }
+            }
+            return usersList;
+        }
         public static User GetUser(string login)
         {
             var user = new User();
@@ -237,18 +257,18 @@ namespace DataAcess
                 command.CommandText = string.Format(GetUserDbCommand, login);
                 connection.Open();
                 IDataReader reader = command.ExecuteReader();
-                //if (reader.IsDBNull(1))     
-                //{
-                //    return null;
-                //}
+                var values = new object[reader.FieldCount];
                 while (reader.Read())
                 {
-                    var values = new object[reader.FieldCount];
                     reader.GetValues(values);
                     user.Id = int.Parse(Convert.ToString(values[0]));
                     user.Email = Convert.ToString(values[1]);
                     user.Password = Convert.ToString(values[2]);
                     user.Name = Convert.ToString(values[3]);
+                }
+                if (Convert.ToString(values[0]) == string.Empty)
+                {
+                    return null;
                 }
             }
             user.Role = GetUserRoles(user.Id);
@@ -261,17 +281,16 @@ namespace DataAcess
             {
                 var command = connection.CreateCommand();
                 connection.Open();
-
+                user.Password = user.Password;
                 command.CommandText = string.Format(CreateUserDbCommand, user.Email, user.Password, user.Name);
                 command.ExecuteNonQuery();
                 command.CommandText = string.Format("select [ID] from [TestingAppDB].[dbo].[User] where Email = '{0}'", user.Email);
                 userId = Convert.ToInt32(command.ExecuteScalar());
             }
-            SetUserRole(userId, Role.User);
             return true;
         }
 
-        private static void SetUserRole(int userId, Role role)
+        public static void SetUserRole(int userId, Role role)
         {
             using (var connection = CreateConnection())
             {
@@ -282,7 +301,17 @@ namespace DataAcess
                 command.ExecuteNonQuery();
             }
         }
+        public static void DeleteUser(int userId)
+        {
+            using (var connection = CreateConnection())
+            {
+                var command = connection.CreateCommand();
+                connection.Open();
 
+                command.CommandText = string.Format(DeleteUserDbCommand, userId);
+                command.ExecuteNonQuery();
+            }
+        }
         public static List<Role> GetUserRoles(int userId)
         {
             var roles = new List<Role>();
@@ -321,7 +350,7 @@ namespace DataAcess
                 {
                     tests.Add(new Test
                     {
-                        TestName = GetTestName(testId),
+                        TestName = GetTest(testId).TestName,
                         TestId = testId
                     });
                 }

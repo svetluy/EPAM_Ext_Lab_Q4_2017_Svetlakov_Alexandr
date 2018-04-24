@@ -16,8 +16,6 @@ namespace KnowledgeTestingApplication.Helpers
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
-                // если текущая страница, то выделяем ее,
-                // например, добавляя класс
                 if (i == pageInfo.PageNumber)
                 {
                     tag.AddCssClass("selected");
@@ -28,6 +26,7 @@ namespace KnowledgeTestingApplication.Helpers
             }
             return MvcHtmlString.Create(result.ToString());
         }
+
         public static MvcHtmlString QuestionHelper(this HtmlHelper html,
             QuestionPageInfo pageInfo, Func<int, string> pageUrl)
         {
@@ -37,8 +36,6 @@ namespace KnowledgeTestingApplication.Helpers
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
-                // если текущая страница, то выделяем ее,
-                // например, добавляя класс
                 if (i == pageInfo.QuestionId)
                 {
                     tag.AddCssClass("selected");

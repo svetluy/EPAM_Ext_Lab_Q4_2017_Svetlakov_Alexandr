@@ -28,9 +28,22 @@ CREATE TABLE [dbo].[Questions] (
 CREATE TABLE [dbo].[User] (
     [ID]       INT            IDENTITY (1, 1) NOT NULL,
     [Email]    NVARCHAR (150) NOT NULL,
-    [Password] NVARCHAR (50)  NOT NULL,
+    [Password] NVARCHAR (200) NOT NULL,
+    [Name]     NVARCHAR (200) NOT NULL,
     PRIMARY KEY CLUSTERED ([ID] ASC)
 );
+
+insert into [TestingAppDB].[dbo].[User]([Email],[Password],[Name]) values ('Admin@admin.ru','AKOuxJQaGg7D3nqjwCFIBuXPoty3FLEjd7fchIyJwNNlCAFTHQsbPOmcdf+Ee89yLA==','John Smith')
+insert into [TestingAppDB].[dbo].[User]([Email],[Password],[Name]) values ('User@user.ru','AJqT8vfWgWlytcCrkb0s9ehzlk1vbyjX0AAqo7Tj6eUkWe8hzRJ3AImiW5m5pxtuYA==','Alice Cooper')
+
+CREATE TABLE [dbo].[Role] (
+    [ID]   INT           IDENTITY (0, 1) NOT NULL,
+    [NAME] NVARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+insert into [TestingAppDB].[dbo].[Role]([NAME]) values ('User')
+insert into [TestingAppDB].[dbo].[Role]([NAME]) values ('Admin')
 
 CREATE TABLE [dbo].[UserRole] (
     [ID]     INT IDENTITY (1, 1) NOT NULL,
@@ -40,6 +53,10 @@ CREATE TABLE [dbo].[UserRole] (
     CONSTRAINT [FK_UserRole_Role] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[Role] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_UserRole_User] FOREIGN KEY ([UserID]) REFERENCES [dbo].[User] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+insert into [TestingAppDB].[dbo].[UserRole]([UserID],[RoleID]) values (1,0)
+insert into [TestingAppDB].[dbo].[UserRole]([UserID],[RoleID]) values (1,1)
+insert into [TestingAppDB].[dbo].[UserRole]([UserID],[RoleID]) values (0,1)
 
 INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[QuestionText],[AnswerOptionID],[AnswerOptions],[RightAnswers],[CheckBoxed]) VALUES (1,1,'Запросы, которые содержат набор критериев для нахождения интересующих пользователя данных из одной или более таблиц, — это:',1,'запросы на выборку дубликатов','запросы на выборку',0)
 INSERT [TestingAppDB].[dbo].[Questions] ([TestID],[QuestionID],[AnswerOptionID],[AnswerOptions]) VALUES (1,1,2,'запросы на выборку')
